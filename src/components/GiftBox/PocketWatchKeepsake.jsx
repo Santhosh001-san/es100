@@ -1073,44 +1073,48 @@ export const PocketWatchKeepsake = ({ onClose }) => {
         padding: '16px'
       }}
     >
-      {/* Universal Close Button returning to gift box (pinned fixed to top right) */}
-      <CloseButton
-        onClose={onClose}
-        variant="gold"
-        isFixed={true}
-        top="20px"
-        right="24px"
-        ariaLabel="Close time capsule and return to gift box"
-      />
+      {/* Universal Close Button returning to gift box (pinned fixed to top right, hidden when sub-letter modal is open) */}
+      {!isLetterOpen && (
+        <CloseButton
+          onClose={onClose}
+          variant="gold"
+          isFixed={true}
+          top="clamp(14px, 3vw, 20px)"
+          right="clamp(14px, 3vw, 24px)"
+          ariaLabel="Close time capsule and return to gift box"
+        />
+      )}
 
-      {/* Top Left Return to Gift Box Button */}
-      <div style={{ position: 'fixed', top: '20px', left: '24px', zIndex: 40 }}>
-        <button
-          onClick={() => {
-            soundManager.playButtonClick();
-            if (onClose) onClose();
-          }}
-          className="btn-glass"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '8px 18px',
-            fontSize: '12px',
-            fontWeight: 700,
-            letterSpacing: '0.08em',
-            color: '#E8DAF5',
-            background: 'rgba(67, 46, 93, 0.65)',
-            border: '1px solid rgba(212, 175, 55, 0.40)',
-            borderRadius: '999px',
-            cursor: 'pointer'
-          }}
-          aria-label="Back to gift box"
-        >
-          <ArrowLeft size={14} color="#D4AF37" />
-          <span>BACK TO GIFT BOX</span>
-        </button>
-      </div>
+      {/* Top Left Return to Gift Box Button (hidden when sub-letter modal is open) */}
+      {!isLetterOpen && (
+        <div style={{ position: 'fixed', top: 'clamp(14px, 3vw, 20px)', left: 'clamp(14px, 3vw, 24px)', zIndex: 40 }}>
+          <button
+            onClick={() => {
+              soundManager.playButtonClick();
+              if (onClose) onClose();
+            }}
+            className="btn-glass"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 18px',
+              fontSize: '12px',
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              color: '#E8DAF5',
+              background: 'rgba(67, 46, 93, 0.65)',
+              border: '1px solid rgba(212, 175, 55, 0.40)',
+              borderRadius: '999px',
+              cursor: 'pointer'
+            }}
+            aria-label="Back to gift box"
+          >
+            <ArrowLeft size={14} color="#D4AF37" />
+            <span>BACK TO GIFT BOX</span>
+          </button>
+        </div>
+      )}
 
       {/* Main Experience Container */}
       <div
@@ -1429,12 +1433,13 @@ export const PocketWatchKeepsake = ({ onClose }) => {
                 textAlign: 'left'
               }}
             >
-              {/* Universal Close Button */}
+              {/* Universal Close Button (stays visible when scrolling on mobile) */}
               <CloseButton
                 onClose={() => setIsLetterOpen(false)}
                 variant="gold"
-                top="18px"
-                right="18px"
+                isSticky={true}
+                top="14px"
+                right="14px"
                 ariaLabel="Close handwritten letter"
               />
 
@@ -1447,6 +1452,7 @@ export const PocketWatchKeepsake = ({ onClose }) => {
                   borderBottom: '1px solid rgba(212, 175, 55, 0.4)',
                   paddingBottom: '14px',
                   marginBottom: '20px',
+                  paddingRight: '54px',
                   flexWrap: 'wrap',
                   gap: '10px'
                 }}

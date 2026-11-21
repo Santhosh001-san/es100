@@ -219,14 +219,14 @@ export const ScrapbookCard = ({ memory, customPhoto, onCustomPhotoChange, onDele
                 boxShadow: '0 25px 60px rgba(0,0,0,0.3)',
                 border: '1.5px solid rgba(212, 175, 55, 0.55)',
                 position: 'relative',
-                padding: '32px'
+                padding: 'clamp(24px, 4vw, 32px) clamp(16px, 4vw, 28px)'
               }}
             >
-              {/* Universal Close Button */}
-              <CloseButton onClose={handleClose} variant="gold" top="18px" right="18px" ariaLabel={`Close ${memory.title}`} />
+              {/* Universal Close Button (sticky so it stays visible on mobile scroll) */}
+              <CloseButton onClose={handleClose} variant="gold" isSticky={true} top="14px" right="14px" ariaLabel={`Close ${memory.title}`} />
 
               {/* Header Badge */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', paddingRight: '45px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', paddingRight: '56px' }}>
                 <span
                   className="font-cinzel"
                   style={{

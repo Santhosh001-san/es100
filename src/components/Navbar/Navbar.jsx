@@ -81,25 +81,31 @@ export const Navbar = ({ activeSection, onNavigate, isUnwrapped }) => {
           >
             <Gift size={20} />
           </div>
-          <div>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
             <span
               className="font-cinzel"
               style={{
-                fontSize: '15px',
+                fontSize: 'clamp(12px, 3.6vw, 15px)',
                 fontWeight: 700,
                 color: '#3B2A52',
-                letterSpacing: '0.08em',
-                display: 'block'
+                letterSpacing: '0.06em',
+                display: 'block',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
               }}
             >
               THE UNEXPECTED PACKAGE
             </span>
             <span
               style={{
-                fontSize: '10.5px',
+                fontSize: 'clamp(9px, 2.5vw, 10.5px)',
                 color: '#8A7A9E',
                 letterSpacing: '0.04em',
-                display: 'block'
+                display: 'block',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
               }}
             >
               FOR COMMANDER ESTELLE • DAY 100

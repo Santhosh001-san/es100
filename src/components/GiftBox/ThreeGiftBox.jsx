@@ -899,7 +899,7 @@ export const ThreeGiftBox = ({ onExploreMore }) => {
           ref={mountRef}
           style={{
             width: '100%',
-            height: '420px',
+            height: 'clamp(320px, 48vh, 420px)',
             position: 'relative',
             cursor: isOpened ? 'grab' : 'pointer',
             touchAction: 'none'
@@ -1268,12 +1268,13 @@ export const ThreeGiftBox = ({ onExploreMore }) => {
                 textAlign: 'left'
               }}
             >
-              {/* Universal Gold Close Button */}
+              {/* Universal Gold Close Button (sticky so it stays visible on mobile scroll) */}
               <CloseButton
                 onClose={closeModal}
                 variant="gold"
-                top="18px"
-                right="18px"
+                isSticky={true}
+                top="14px"
+                right="14px"
                 ariaLabel="Close Special Note"
               />
 
@@ -1286,7 +1287,7 @@ export const ThreeGiftBox = ({ onExploreMore }) => {
                   borderBottom: '1px solid rgba(212, 175, 55, 0.4)',
                   paddingBottom: '14px',
                   marginBottom: '20px',
-                  paddingRight: '48px',
+                  paddingRight: '56px',
                   flexWrap: 'wrap',
                   gap: '12px'
                 }}
@@ -1489,9 +1490,9 @@ export const ThreeGiftBox = ({ onExploreMore }) => {
                 position: 'relative'
               }}
             >
-              <CloseButton onClose={closeModal} variant="gold" top="18px" right="18px" ariaLabel="Close Photographs Window" />
+              <CloseButton onClose={closeModal} variant="gold" isSticky={true} top="14px" right="14px" ariaLabel="Close Photographs Window" />
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', paddingRight: '56px' }}>
                 <span className="font-cinzel" style={{ fontSize: '11px', color: '#D4AF37', fontWeight: 800, letterSpacing: '0.12em' }}>
                   COMMANDER ESTELLE • MEMORY SCRAPBOOK
                 </span>
@@ -1500,7 +1501,7 @@ export const ThreeGiftBox = ({ onExploreMore }) => {
                 </span>
               </div>
 
-              <h3 className="font-serif-luxury" style={{ fontSize: '23px', color: '#34224C', marginBottom: '14px', paddingRight: '40px' }}>
+              <h3 className="font-serif-luxury" style={{ fontSize: '23px', color: '#34224C', marginBottom: '14px', paddingRight: '56px' }}>
                 {selectedMemory.title}
               </h3>
 

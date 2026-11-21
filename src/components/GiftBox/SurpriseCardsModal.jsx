@@ -140,18 +140,18 @@ export const SurpriseCardsModal = ({ onClose }) => {
           width: '100%',
           maxHeight: '92vh',
           overflowY: 'auto',
-          padding: '32px 24px 26px',
+          padding: 'clamp(24px, 4vw, 32px) clamp(14px, 4vw, 24px) 26px',
           boxShadow: '0 28px 70px rgba(0,0,0,0.4), 0 0 45px rgba(212, 175, 55, 0.25)',
           border: '2px solid rgba(212, 175, 55, 0.65)',
           position: 'relative',
           textAlign: 'center'
         }}
       >
-        {/* Universal Close Button */}
-        <CloseButton onClose={onClose} variant="gold" top="18px" right="18px" ariaLabel="Close Surprise Cards" />
+        {/* Universal Close Button (sticky pinned so it stays visible on mobile scroll) */}
+        <CloseButton onClose={onClose} variant="gold" isSticky={true} top="14px" right="14px" ariaLabel="Close Surprise Cards" />
 
         {/* Section Header */}
-        <div style={{ marginBottom: '14px' }}>
+        <div style={{ marginBottom: '14px', paddingLeft: '32px', paddingRight: '32px' }}>
           <div
             style={{
               display: 'inline-flex',

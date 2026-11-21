@@ -93,6 +93,8 @@ export const EnvelopesSection = ({ onProceedToFinalLetter }) => {
               marginTop: '22px',
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
               gap: '12px',
               background: 'rgba(255, 253, 249, 0.92)',
               border: '1px solid rgba(212, 175, 55, 0.45)',
@@ -131,8 +133,8 @@ export const EnvelopesSection = ({ onProceedToFinalLetter }) => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))',
-            gap: '24px',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 220px), 1fr))',
+            gap: 'clamp(14px, 3vw, 24px)',
             position: 'relative',
             zIndex: 2,
             maxWidth: '1200px',

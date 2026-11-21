@@ -780,7 +780,7 @@ export const Trophy3DCanvas = () => {
         ref={containerRef}
         style={{
           width: '100%',
-          height: '450px',
+          height: 'clamp(320px, 48vh, 450px)',
           position: 'relative',
           zIndex: 3,
           touchAction: 'none'

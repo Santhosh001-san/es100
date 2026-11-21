@@ -194,15 +194,15 @@ export const SecretBonusModal = () => {
                     width: '95%',
                     maxHeight: '92vh',
                     overflowY: 'auto',
-                    padding: '42px 34px',
+                    padding: 'clamp(28px, 5vw, 42px) clamp(16px, 4vw, 34px)',
                     boxShadow: '0 30px 70px rgba(0,0,0,0.35)',
                     border: '2px solid rgba(212, 175, 55, 0.65)',
                     position: 'relative',
                     textAlign: 'center'
                   }}
                 >
-                  {/* Universal Close Button */}
-                  <CloseButton onClose={handleClose} variant="gold" top="18px" right="18px" ariaLabel="Close Secret Trophy Window" />
+                  {/* Universal Close Button (pins sticky so it never disappears on scroll) */}
+                  <CloseButton onClose={handleClose} variant="gold" isSticky={true} top="14px" right="14px" ariaLabel="Close Secret Trophy Window" />
 
                   {/* Alert Header */}
                   <motion.div
@@ -385,7 +385,7 @@ export const SecretBonusModal = () => {
                     width: '95%',
                     maxHeight: '92vh',
                     overflowY: 'auto',
-                    padding: '36px 20px 28px',
+                    padding: 'clamp(28px, 5vw, 36px) clamp(14px, 4vw, 20px) 28px',
                     boxShadow: '0 35px 80px rgba(0,0,0,0.7), 0 0 60px rgba(212, 175, 55, 0.25)',
                     border: '2px solid rgba(212, 175, 55, 0.75)',
                     position: 'relative',
@@ -395,8 +395,8 @@ export const SecretBonusModal = () => {
                     alignItems: 'center'
                   }}
                 >
-                  {/* Universal Close Button */}
-                  <CloseButton onClose={handleClose} variant="gold" top="18px" right="18px" ariaLabel="Close Secret Trophy Window" />
+                  {/* Universal Close Button (pins sticky so it never disappears on scroll) */}
+                  <CloseButton onClose={handleClose} variant="gold" isSticky={true} top="14px" right="14px" ariaLabel="Close Secret Trophy Window" />
 
                   {/* Ceremonial Badge Header */}
                   <motion.div

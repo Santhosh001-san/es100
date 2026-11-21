@@ -208,19 +208,20 @@ export const UnfoldingLetter = ({ onLetterRead }) => {
             style={{
               background: '#FFFDF9',
               borderRadius: '20px',
-              padding: '50px 42px',
+              padding: 'clamp(36px, 5vw, 50px) clamp(18px, 4vw, 42px)',
               boxShadow: '0 20px 50px rgba(74, 53, 104, 0.16)',
               border: '1px solid rgba(212, 175, 55, 0.4)',
               position: 'relative'
             }}
           >
-            {/* Universal Close Button */}
+            {/* Universal Close Button (sticky pinned so it stays visible on mobile scroll) */}
             <CloseButton
               onClose={handleClose}
               ariaLabel="Close and re-seal letter"
               variant="gold"
-              top="20px"
-              right="20px"
+              isSticky={true}
+              top="14px"
+              right="14px"
             />
 
             {/* Golden corner flourishes */}

@@ -375,19 +375,20 @@ export const SurpriseEnvelope = ({ envelope, isOpened, onOpen, index }) => {
                 width: '100%',
                 maxHeight: '90vh',
                 overflowY: 'auto',
-                padding: '36px 28px 28px',
+                padding: 'clamp(28px, 4vw, 36px) clamp(16px, 4vw, 28px) 28px',
                 boxShadow: '0 28px 70px rgba(0,0,0,0.4), 0 0 40px rgba(212, 175, 55, 0.25)',
                 border: '2px solid rgba(212, 175, 55, 0.65)',
                 position: 'relative',
                 textAlign: 'center'
               }}
             >
-              {/* Universal Close Button */}
+              {/* Universal Close Button (sticky so it stays visible on mobile scroll) */}
               <CloseButton
                 onClose={handleClose}
                 variant="gold"
-                top="18px"
-                right="18px"
+                isSticky={true}
+                top="14px"
+                right="14px"
                 ariaLabel={`Close Envelope ${envelope.number}`}
               />
 

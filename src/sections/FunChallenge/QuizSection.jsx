@@ -554,7 +554,7 @@ export const QuizSection = ({ onProceedToEnvelopes }) => {
                   transition={{ duration: 0.32 }}
                   className="parchment-card"
                   style={{
-                    padding: '36px 30px',
+                    padding: 'clamp(28px, 4vw, 36px) clamp(16px, 4vw, 30px)',
                     position: 'relative',
                     borderRadius: '24px',
                     border: '2px solid rgba(212, 175, 55, 0.55)',
@@ -568,8 +568,9 @@ export const QuizSection = ({ onProceedToEnvelopes }) => {
                       setActiveQuestionId(null);
                     }}
                     variant="gold"
-                    top="18px"
-                    right="18px"
+                    isSticky={true}
+                    top="14px"
+                    right="14px"
                     ariaLabel="Return to question list"
                   />
 

@@ -12,7 +12,8 @@ export const CloseButton = ({
   top = '16px',
   right = '16px',
   isAbsolute = true,
-  isFixed = false
+  isFixed = false,
+  isSticky = false
 }) => {
   const handleClick = (e) => {
     e.stopPropagation();
@@ -61,6 +62,67 @@ export const CloseButton = ({
   };
 
   const variantStyles = getVariantStyles();
+
+  if (isSticky) {
+    const stickyTop = style.top || top || '12px';
+    const stickyRight = style.right || right || '12px';
+    return (
+      <div
+        style={{
+          position: 'sticky',
+          top: stickyTop,
+          zIndex: style.zIndex || 1700,
+          display: 'flex',
+          justifyContent: 'flex-end',
+          height: 0,
+          overflow: 'visible',
+          pointerEvents: 'none',
+          width: '100%',
+          marginBottom: 0
+        }}
+      >
+        <div
+          style={{
+            pointerEvents: 'auto',
+            marginRight: `max(0px, calc(${stickyRight} - 12px))`,
+            marginTop: '-6px'
+          }}
+        >
+          <motion.button
+            type="button"
+            onClick={handleClick}
+            aria-label={ariaLabel}
+            title="Close (or press Esc)"
+            whileHover={{ scale: 1.14, rotate: 90 }}
+            whileTap={{ scale: 0.90 }}
+            transition={{ type: 'spring', damping: 15, stiffness: 350 }}
+            style={{
+              position: 'relative',
+              width: '42px',
+              height: '42px',
+              minWidth: '42px',
+              minHeight: '42px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              padding: 0,
+              touchAction: 'manipulation',
+              outline: 'none',
+              ...variantStyles,
+              ...style,
+              top: undefined,
+              right: undefined
+            }}
+          >
+            <X size={size} strokeWidth={2.5} />
+          </motion.button>
+        </div>
+      </div>
+    );
+  }
+
   const positionMode = style.position || (isFixed ? 'fixed' : isAbsolute ? 'absolute' : 'relative');
 
   return (

@@ -249,12 +249,12 @@ export const StarsUniverse = ({ onBackToGift, onContinueToScrapbook }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '14px 24px',
+          padding: 'clamp(10px, 3vw, 14px) clamp(12px, 3vw, 24px)',
           background: 'rgba(10, 5, 24, 0.82)',
           backdropFilter: 'blur(16px)',
           borderBottom: '1px solid rgba(212, 175, 55, 0.22)',
           flexShrink: 0,
-          gap: '16px',
+          gap: '12px',
           flexWrap: 'wrap'
         }}
       >
@@ -288,7 +288,7 @@ export const StarsUniverse = ({ onBackToGift, onContinueToScrapbook }) => {
         </button>
 
         {/* Right side: Discovery Progress Badge & Universal Close Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(8px, 2vw, 14px)', flexWrap: 'wrap' }}>
           {/* Discovery Progress Badge */}
           <div
             style={{
