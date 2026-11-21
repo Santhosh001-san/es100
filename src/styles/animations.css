@@ -1,0 +1,258 @@
+/* Interactive & 3D Keyframe Animations for The Unexpected Package */
+
+/* Floating Ambient Sparkles and Petals */
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(4deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes gentlePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.45);
+  }
+}
+
+@keyframes goldenShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes rayRotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* 3D Gift Box Scene */
+.gift-scene {
+  perspective: 1100px;
+  width: 100%;
+  max-width: 340px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  position: relative;
+}
+
+.gift-box-3d {
+  position: relative;
+  width: 220px;
+  height: 170px;
+  transform-style: preserve-3d;
+  transform: rotateX(-16deg) rotateY(20deg);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gift-box-3d:hover {
+  transform: rotateX(-12deg) rotateY(26deg) scale(1.03);
+}
+
+/* Base Shadow */
+.box-shadow-ground {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(90deg);
+  width: 240px;
+  height: 160px;
+  background: radial-gradient(ellipse at center, rgba(65, 42, 90, 0.4) 0%, rgba(65, 42, 90, 0.15) 50%, transparent 75%);
+  filter: blur(14px);
+  pointer-events: none;
+}
+
+/* Box Faces */
+.box-face {
+  position: absolute;
+  background: linear-gradient(135deg, #8B6FA9 0%, #765798 50%, #5E3F80 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0 0 35px rgba(45, 26, 68, 0.4);
+}
+
+.box-front {
+  width: 200px;
+  height: 140px;
+  transform: translateZ(100px);
+}
+
+.box-back {
+  width: 200px;
+  height: 140px;
+  transform: rotateY(180deg) translateZ(100px);
+}
+
+.box-left {
+  width: 200px;
+  height: 140px;
+  transform: rotateY(-90deg) translateZ(100px);
+}
+
+.box-right {
+  width: 200px;
+  height: 140px;
+  transform: rotateY(90deg) translateZ(100px);
+}
+
+.box-bottom {
+  width: 200px;
+  height: 200px;
+  transform: rotateX(-90deg) translateZ(70px);
+  background: #483060;
+}
+
+/* Box Lid Container */
+.box-lid-3d {
+  position: absolute;
+  top: -12px;
+  left: -8px;
+  width: 216px;
+  height: 216px;
+  transform-style: preserve-3d;
+  transform: rotateX(90deg) translateZ(80px);
+  transform-origin: center -100px;
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 10;
+}
+
+.box-lid-3d.open {
+  transform: rotateX(-35deg) translateY(-140px) translateZ(120px) rotateZ(-15deg);
+  opacity: 0.15;
+}
+
+/* Lid Top Surface */
+.lid-surface {
+  position: absolute;
+  width: 216px;
+  height: 216px;
+  background: linear-gradient(135deg, #9C81BA 0%, #8364A3 60%, #684888 100%);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: inset 0 0 25px rgba(35, 18, 55, 0.3), 0 8px 24px rgba(40, 20, 60, 0.3);
+}
+
+/* Golden Satin Ribbon Cross */
+.ribbon-vert {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 38px;
+  height: 100%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #F9E292 0%, #D4AF37 35%, #F5DC7F 55%, #B88E23 100%);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.4), inset 0 0 4px rgba(255, 255, 255, 0.6);
+  z-index: 2;
+}
+
+.ribbon-horiz {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 38px;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, #F9E292 0%, #D4AF37 35%, #F5DC7F 55%, #B88E23 100%);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.4), inset 0 0 4px rgba(255, 255, 255, 0.6);
+  z-index: 2;
+}
+
+/* 3D Golden Bow on Top */
+.bow-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(10px);
+  width: 90px;
+  height: 90px;
+  z-index: 15;
+}
+
+.bow-knot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFF1B0 0%, #D4AF37 60%, #8C6819 100%);
+  box-shadow: 0 4px 12px rgba(140, 104, 25, 0.6);
+  z-index: 20;
+}
+
+.bow-wing-left {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%) rotate(-30deg);
+  width: 44px;
+  height: 28px;
+  border-radius: 50% 10% 50% 10%;
+  background: linear-gradient(135deg, #FFF3BF 0%, #D4AF37 70%, #96741F 100%);
+  box-shadow: 0 4px 12px rgba(140, 104, 25, 0.4);
+}
+
+.bow-wing-right {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%) rotate(30deg);
+  width: 44px;
+  height: 28px;
+  border-radius: 10% 50% 10% 50%;
+  background: linear-gradient(225deg, #FFF3BF 0%, #D4AF37 70%, #96741F 100%);
+  box-shadow: 0 4px 12px rgba(140, 104, 25, 0.4);
+}
+
+/* Golden Light Rays emitted on open */
+.golden-light-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 238, 160, 0.9) 0%, rgba(212, 175, 55, 0.5) 40%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  filter: blur(10px);
+  z-index: 25;
+  animation: rayRotate 12s linear infinite;
+}
+
+/* Washi Tape Accent for Scrapbook */
+.washi-tape {
+  position: absolute;
+  height: 22px;
+  width: 85px;
+  background: rgba(243, 229, 171, 0.75);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  z-index: 5;
+  clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
+}
+
+/* Envelope Flap 3D Transform */
+.envelope-wrap {
+  perspective: 800px;
+}

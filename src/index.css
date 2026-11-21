@@ -1,0 +1,7 @@
+/* Reset Root container for full-width responsive layouts */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
