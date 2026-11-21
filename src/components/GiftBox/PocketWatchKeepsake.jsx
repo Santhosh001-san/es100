@@ -416,6 +416,8 @@ export const PocketWatchKeepsake = ({ onClose }) => {
 
   // Bilingual Letter Modal State
   const [isLetterOpen, setIsLetterOpen] = useState(false);
+  const isLetterOpenRef = useRef(false);
+  isLetterOpenRef.current = isLetterOpen;
 
   // Bilingual Language State: 'en' (default) | 'vi'
   const [language, setLanguage] = useState('en');
@@ -928,7 +930,12 @@ export const PocketWatchKeepsake = ({ onClose }) => {
 
     const animate = () => {
       sceneRefs.current.animFrameId = requestAnimationFrame(animate);
-      const delta = clock.getDelta();
+
+      // Skip heavy WebGL render pass while reading handwritten letter or when tab is hidden
+      if (isLetterOpenRef.current || document.hidden) {
+        return;
+      }
+      const delta = Math.min(clock.getDelta(), 0.1);
 
       // Smooth camera interpolation
       camera.position.lerp(sceneRefs.current.targetCamPos, 3.5 * delta);

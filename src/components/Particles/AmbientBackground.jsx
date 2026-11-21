@@ -47,30 +47,16 @@ export const AmbientBackground = () => {
       color: Math.random() > 0.5 ? '255, 225, 140' : '230, 215, 255'
     }));
 
-    const glows = [
-      { x: width * 0.2, y: height * 0.25, r: 280, color: 'rgba(232, 214, 248, 0.35)' },
-      { x: width * 0.8, y: height * 0.65, r: 320, color: 'rgba(248, 215, 227, 0.3)' },
-      { x: width * 0.5, y: height * 0.85, r: 260, color: 'rgba(255, 246, 218, 0.25)' }
-    ];
-
     let time = 0;
+    let isRunning = true;
 
     const render = () => {
+      if (!isRunning) return;
+      animationFrameId = requestAnimationFrame(render);
       time += 0.01;
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Soft Ambient Glowing Orbs
-      glows.forEach((g) => {
-        const radGrad = ctx.createRadialGradient(g.x, g.y, 0, g.x, g.y, g.r);
-        radGrad.addColorStop(0, g.color);
-        radGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-        ctx.fillStyle = radGrad;
-        ctx.beginPath();
-        ctx.arc(g.x, g.y, g.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      // 2. Delicate Floating Petals
+      // 1. Delicate Floating Petals (Smooth 2D Bezier)
       petals.forEach((p) => {
         p.y += p.speedY;
         p.x += p.speedX + Math.sin(time + p.y * 0.01) * 0.3;
@@ -98,7 +84,7 @@ export const AmbientBackground = () => {
         ctx.restore();
       });
 
-      // 3. Delicate Sparkles
+      // 2. High-Performance Delicate Sparkles (GPU-accelerated dual-pass glow without expensive shadowBlur)
       sparkles.forEach((s) => {
         s.y += s.speedY;
         s.opacity += Math.sin(time * 5 + s.x) * s.pulseSpeed;
@@ -107,39 +93,68 @@ export const AmbientBackground = () => {
         if (s.y < 0) s.y = height;
         if (s.y > height) s.y = 0;
 
+        // Sparkle soft outer aura
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius * 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${s.color}, ${boundedOpacity * 0.28})`;
+        ctx.fill();
+
+        // Sparkle luminous core
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${s.color}, ${boundedOpacity})`;
-        ctx.shadowColor = `rgba(${s.color}, 0.8)`;
-        ctx.shadowBlur = 6;
         ctx.fill();
-        ctx.shadowBlur = 0;
       });
-
-      animationFrameId = requestAnimationFrame(render);
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isRunning = false;
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      } else {
+        isRunning = true;
+        render();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     render();
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
+    <div
       style={{
         position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
+        inset: 0,
+        pointerEvents: 'none',
         zIndex: -1,
-        opacity: 0.85
+        // GPU-composited ambient background gradient glows (zero-cost rasterization)
+        background: `
+          radial-gradient(circle at 20% 25%, rgba(232, 214, 248, 0.32) 0%, transparent 45%),
+          radial-gradient(circle at 80% 65%, rgba(248, 215, 227, 0.28) 0%, transparent 50%),
+          radial-gradient(circle at 50% 85%, rgba(255, 246, 218, 0.22) 0%, transparent 45%)
+        `
       }}
-    />
+    >
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: -1,
+          opacity: 0.85
+        }}
+      />
+    </div>
   );
 };

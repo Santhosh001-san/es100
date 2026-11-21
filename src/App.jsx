@@ -16,18 +16,26 @@ export function App() {
   const [showEnvelopes, setShowEnvelopes] = useState(false);
   const [showLetter, setShowLetter] = useState(false);
 
-  // Scrollspy to detect active section
+  // Scrollspy to detect active section with rAF throttling (eliminates scroll stutter & layout thrashing)
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['opening', 'challenge', 'envelopes', 'letter', 'celebration'];
-      const scrollPos = window.scrollY + 250;
+    let ticking = false;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sections[i]);
-          break;
-        }
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const sections = ['opening', 'challenge', 'envelopes', 'letter', 'celebration'];
+          const scrollPos = window.scrollY + 250;
+
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const el = document.getElementById(sections[i]);
+            if (el && el.offsetTop <= scrollPos) {
+              setActiveSection((prev) => (prev !== sections[i] ? sections[i] : prev));
+              break;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 

@@ -11,6 +11,7 @@ export const Trophy3DCanvas = () => {
   const [isInteracting, setIsInteracting] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [zoomLevelPercent, setZoomLevelPercent] = useState(100);
+  const lastZoomPercentRef = useRef(100);
 
   // References for external controls and state
   const orbitControlsRef = useRef(null);
@@ -608,11 +609,14 @@ export const Trophy3DCanvas = () => {
       // Update OrbitControls
       controls.update();
 
-      // Update Zoom percentage state for UI
+      // Update Zoom percentage state for UI only when value changes
       const camDist = camera.position.distanceTo(controls.target);
       const zNorm = 1 - (camDist - controls.minDistance) / (controls.maxDistance - controls.minDistance);
       const calculatedPercent = Math.round(75 + zNorm * 75);
-      setZoomLevelPercent(calculatedPercent);
+      if (lastZoomPercentRef.current !== calculatedPercent) {
+        lastZoomPercentRef.current = calculatedPercent;
+        setZoomLevelPercent(calculatedPercent);
+      }
 
       // Smooth Emissive Glow Pulse
       currentEmissiveIntensity += (targetEmissiveIntensity - currentEmissiveIntensity) * glowLerpFactor;
@@ -660,6 +664,10 @@ export const Trophy3DCanvas = () => {
       domElement.removeEventListener('pointerdown', onPointerDown);
       domElement.removeEventListener('pointerup', onPointerUp);
       window.removeEventListener('resize', handleResize);
+
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
 
       controls.dispose();
 

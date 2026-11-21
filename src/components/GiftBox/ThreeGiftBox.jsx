@@ -784,12 +784,17 @@ export const ThreeGiftBox = ({ onExploreMore }) => {
     };
     window.addEventListener('resize', handleResize);
 
-    // 11. Render Animation Loop
+    // 11. Render Animation Loop with Viewport Visibility Observer (Pauses when offscreen to prevent lag)
     let clock = new THREE.Clock();
+    let isVisible = true;
 
     const animate = () => {
+      if (!isVisible) {
+        sceneRefs.current.animFrameId = null;
+        return;
+      }
       sceneRefs.current.animFrameId = requestAnimationFrame(animate);
-      const delta = clock.getDelta();
+      const delta = Math.min(clock.getDelta(), 0.1);
       const time = clock.getElapsedTime();
 
       // Smooth camera orbit & rotation interpolation
@@ -839,9 +844,37 @@ export const ThreeGiftBox = ({ onExploreMore }) => {
       renderer.render(scene, camera);
     };
 
+    // Pause WebGL rendering when gift box is scrolled out of view to save battery & eliminate stutter
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting && !document.hidden;
+        if (isVisible && !sceneRefs.current.animFrameId) {
+          clock.start();
+          animate();
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isVisible = false;
+      } else {
+        isVisible = true;
+        if (!sceneRefs.current.animFrameId) {
+          clock.start();
+          animate();
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     animate();
 
     return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       container.removeEventListener('pointerdown', handlePointerDown);
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerup', handlePointerUp);
