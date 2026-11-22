@@ -50,7 +50,9 @@ export const Trophy3DCanvas = () => {
     const camera = cameraRef.current;
     if (!controls || !camera) return;
 
-    camera.position.set(0, 0.02, 3.25);
+    const isMobile = window.innerWidth <= 640;
+    const defaultDist = isMobile ? 2.52 : 2.72;
+    camera.position.set(0, 0.02, defaultDist);
     controls.target.set(0, 0.02, 0);
     controls.update();
     soundManager.playButtonClick();
@@ -62,12 +64,15 @@ export const Trophy3DCanvas = () => {
 
     const width = container.clientWidth || 460;
     const height = container.clientHeight || 450;
+    const isMobile = window.innerWidth <= 640;
+    const defaultDist = isMobile ? 2.52 : 2.72;
+    const defaultFov = isMobile ? 42 : 38;
 
     // --- 1. Scene & Camera ---
     const scene = new THREE.Scene();
-    // 38-degree FOV at distance 3.25 provides ~2.25 vertical units, perfectly framing the 1.88 unit trophy with 40px margin top and bottom
-    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 50);
-    camera.position.set(0, 0.02, 3.25);
+    // Optimized full-view framing: Closer distance & responsive FOV ensure the trophy is displayed in grand full view on mobile & desktop
+    const camera = new THREE.PerspectiveCamera(defaultFov, width / height, 0.1, 50);
+    camera.position.set(0, 0.02, defaultDist);
     camera.lookAt(0, 0.02, 0);
     cameraRef.current = camera;
 
@@ -95,8 +100,8 @@ export const Trophy3DCanvas = () => {
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
     controls.enablePan = false; // Keep trophy centered in view
-    controls.minDistance = 2.4;
-    controls.maxDistance = 4.2;
+    controls.minDistance = 1.85; // Allows close inspection of gold details & engraved plaque
+    controls.maxDistance = 3.6;
 
     // Allow vertical rotation to inspect top of cup and lower base
     controls.minPolarAngle = Math.PI * 0.22; // ~40° (inspect down into cup)
@@ -649,6 +654,8 @@ export const Trophy3DCanvas = () => {
       const newHeight = container.clientHeight;
       if (newWidth > 0 && newHeight > 0) {
         camera.aspect = newWidth / newHeight;
+        const mobile = window.innerWidth <= 640;
+        camera.fov = mobile ? 42 : 38;
         camera.updateProjectionMatrix();
         renderer.setSize(newWidth, newHeight);
       }
@@ -783,12 +790,12 @@ export const Trophy3DCanvas = () => {
         )}
       </AnimatePresence>
 
-      {/* 4. 3D WebGL Canvas Container (Height 450px ensures entire trophy & base are fully framed) */}
+      {/* 4. 3D WebGL Canvas Container (Generous height ensures entire trophy & base are fully, grandly framed) */}
       <div
         ref={containerRef}
         style={{
           width: '100%',
-          height: 'clamp(320px, 48vh, 450px)',
+          height: 'clamp(370px, 54vh, 490px)',
           position: 'relative',
           zIndex: 3,
           touchAction: 'none'
