@@ -8,14 +8,14 @@ export const Envelope06_PetalReveal = ({ envelope, onClose }) => {
   const [selectedChoiceId, setSelectedChoiceId] = useState(null);
   const [activePetalText, setActivePetalText] = useState(null);
 
-  // 6 Interactive Flower Petals
+  // 6 Interactive Floating Flower Petals (Original Drifting Petals)
   const interactivePetals = [
-    { id: 1, sentiment: 'A Petal of Spontaneous Laughter', icon: '🌸' },
-    { id: 2, sentiment: 'A Whimsical 2:00 AM Tangent', icon: '🌺' },
-    { id: 3, sentiment: 'A Gentle Breeze of Good Vibes', icon: '🌷' },
-    { id: 4, sentiment: 'Zero Logic, 100% Fun', icon: '🌸' },
-    { id: 5, sentiment: 'Unplanned Moments are the Best', icon: '🌺' },
-    { id: 6, sentiment: 'A Little Burst of Warmth', icon: '🌷' }
+    { id: 1, top: '10%', left: '6%', size: 30, rot: 15, sentiment: 'A Petal of Spontaneous Laughter' },
+    { id: 2, top: '14%', right: '7%', size: 32, rot: -25, sentiment: 'A Whimsical 2:00 AM Tangent' },
+    { id: 3, top: '38%', left: '4%', size: 28, rot: 45, sentiment: 'A Gentle Breeze of Good Vibes' },
+    { id: 4, top: '46%', right: '5%', size: 30, rot: -10, sentiment: 'Zero Logic, 100% Fun' },
+    { id: 5, bottom: '22%', left: '6%', size: 34, rot: 30, sentiment: 'Unplanned Moments are the Best' },
+    { id: 6, bottom: '18%', right: '7%', size: 30, rot: -40, sentiment: 'A Little Burst of Warmth' }
   ];
 
   const handlePetalClick = (petal) => {
@@ -41,7 +41,8 @@ export const Envelope06_PetalReveal = ({ envelope, onClose }) => {
         border: '2px solid rgba(217, 125, 149, 0.65)',
         position: 'relative',
         textAlign: 'center',
-        touchAction: 'pan-y'
+        touchAction: 'pan-y',
+        overflow: 'hidden'
       }}
     >
       {/* Universal Close Button */}
@@ -53,6 +54,70 @@ export const Envelope06_PetalReveal = ({ envelope, onClose }) => {
         right="14px"
         ariaLabel="Close Envelope 06"
       />
+
+      {/* Interactive Drifting Petals around the scene (Original Realistic Flower Petals) */}
+      {interactivePetals.map((petal) => (
+        <motion.button
+          key={petal.id}
+          whileHover={{ scale: 1.45, rotate: petal.rot + 25 }}
+          whileTap={{ scale: 0.85 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            handlePetalClick(petal);
+          }}
+          title="Tap petal!"
+          style={{
+            position: 'absolute',
+            top: petal.top,
+            bottom: petal.bottom,
+            left: petal.left,
+            right: petal.right,
+            width: `${petal.size}px`,
+            height: `${petal.size * 1.3}px`,
+            borderRadius: '50% 0 50% 50%',
+            background: 'linear-gradient(135deg, #FFF0F5 0%, #F5C2D2 60%, #E89EBA 100%)',
+            border: '1px solid rgba(217, 125, 149, 0.5)',
+            boxShadow: '0 4px 14px rgba(217, 125, 149, 0.35)',
+            transform: `rotate(${petal.rot}deg)`,
+            cursor: 'pointer',
+            zIndex: 10,
+            animation: `floatSlow ${4 + (petal.id % 3)}s ease-in-out infinite ${petal.id * 0.4}s`
+          }}
+        />
+      ))}
+
+      {/* Active Petal Toast Banner */}
+      <AnimatePresence>
+        {activePetalText && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.85 }}
+            style={{
+              position: 'absolute',
+              top: '16px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: '#FFFFFF',
+              border: '1.5px solid #D97D95',
+              borderRadius: '20px',
+              padding: '6px 18px',
+              boxShadow: '0 8px 24px rgba(217, 125, 149, 0.25)',
+              zIndex: 30,
+              fontSize: '12px',
+              fontWeight: 700,
+              color: '#9E4663',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              pointerEvents: 'none'
+            }}
+          >
+            <span>🌸</span>
+            <span>{activePetalText}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Header Stamp */}
       <motion.div
@@ -150,69 +215,6 @@ export const Envelope06_PetalReveal = ({ envelope, onClose }) => {
         )}
       </motion.div>
 
-      {/* Interactive Petal Garden Tray */}
-      <div style={{ marginBottom: '22px', position: 'relative', zIndex: 5 }}>
-        <div style={{ fontSize: '11px', fontWeight: 800, color: '#9E4663', letterSpacing: '0.1em', fontFamily: "'Cinzel', serif", marginBottom: '10px' }}>
-          ✦ TAP DRIFTING FLOWER PETALS FOR LITTLE SENTIMENTS ✦
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
-          {interactivePetals.map((petal) => (
-            <motion.button
-              key={petal.id}
-              whileHover={{ scale: 1.15, y: -2 }}
-              whileTap={{ scale: 0.92 }}
-              onClick={() => handlePetalClick(petal)}
-              style={{
-                background: 'rgba(255, 255, 255, 0.92)',
-                border: '1.5px solid rgba(217, 125, 149, 0.45)',
-                borderRadius: '20px',
-                padding: '6px 14px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                fontSize: '12px',
-                color: '#9E4663',
-                fontWeight: 700,
-                cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(217, 125, 149, 0.15)'
-              }}
-            >
-              <span>{petal.icon}</span>
-              <span>Petal {petal.id}</span>
-            </motion.button>
-          ))}
-        </div>
-
-        {/* Active Petal Toast Banner */}
-        <AnimatePresence>
-          {activePetalText && (
-            <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              style={{
-                marginTop: '12px',
-                background: '#FFFFFF',
-                border: '1.5px solid #D97D95',
-                borderRadius: '16px',
-                padding: '10px 18px',
-                boxShadow: '0 8px 24px rgba(217, 125, 149, 0.15)',
-                fontSize: '13px',
-                fontWeight: 700,
-                color: '#9E4663',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              <span>🌸</span>
-              <span>{activePetalText}</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
       {/* Interactive Directives */}
       <div style={{ marginBottom: '22px', textAlign: 'left', position: 'relative', zIndex: 5 }}>
         <span
@@ -288,6 +290,11 @@ export const Envelope06_PetalReveal = ({ envelope, onClose }) => {
             );
           })}
         </div>
+      </div>
+
+      {/* Floating Prompt */}
+      <div style={{ fontSize: '11px', color: '#9E4663', marginBottom: '18px', fontStyle: 'italic', position: 'relative', zIndex: 5 }}>
+        ✦ Tap the floating petals drifting across the screen! ✦
       </div>
 
       {/* Action Button */}
