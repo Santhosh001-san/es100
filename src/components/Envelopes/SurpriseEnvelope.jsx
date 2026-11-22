@@ -93,7 +93,6 @@ export const SurpriseEnvelope = ({ envelope, isOpened, onOpen, index }) => {
                     <Envelope10_FinalCelebration
                       envelope={envelope}
                       onClose={handleClose}
-                      onLetterRead={() => onOpen(10)}
                     />
                   );
               }
