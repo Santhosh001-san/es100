@@ -32,7 +32,7 @@ const renderHighlightedText = (text) => {
   });
 };
 
-export const UnfoldingLetter = ({ onLetterRead }) => {
+export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
   // Modes: 'sealed' | 'breaking' | 'celebration' | 'letter'
   const [mode, setMode] = useState('sealed');
   const [revealedParagraphs, setRevealedParagraphs] = useState(0);
@@ -62,6 +62,7 @@ export const UnfoldingLetter = ({ onLetterRead }) => {
     soundManager.playButtonClick();
     setMode('sealed');
     setRevealedParagraphs(0);
+    if (onClose) onClose();
   };
 
   const handleViewLetter = () => {
@@ -112,6 +113,18 @@ export const UnfoldingLetter = ({ onLetterRead }) => {
               overflow: 'hidden'
             }}
           >
+            {onClose && (
+              <CloseButton
+                onClose={(e) => {
+                  if (e && e.stopPropagation) e.stopPropagation();
+                  onClose();
+                }}
+                variant="gold"
+                top="16px"
+                right="16px"
+                ariaLabel="Close Sealed Dispatch"
+              />
+            )}
             {/* Golden Wax Seal (with realistic fracture animation on click) */}
             <div style={{ position: 'relative', width: '74px', height: '74px', margin: '0 auto 20px' }}>
               {mode === 'breaking' ? (

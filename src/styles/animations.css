@@ -369,3 +369,117 @@
   display: inline;
 }
 
+/* ==========================================================================
+   10 INTERACTIVE ENVELOPES — KEYFRAME ANIMATIONS & PARTICLES
+   ========================================================================== */
+
+/* Envelope 01: Golden Arrival Outline Glow */
+@keyframes goldenOutlineGlow {
+  0%, 100% {
+    box-shadow: 0 12px 30px rgba(123, 94, 153, 0.16), 0 0 14px rgba(212, 175, 55, 0.25);
+    border-color: rgba(212, 175, 55, 0.45);
+  }
+  50% {
+    box-shadow: 0 16px 40px rgba(123, 94, 153, 0.24), 0 0 28px rgba(212, 175, 55, 0.65);
+    border-color: rgba(212, 175, 55, 0.9);
+  }
+}
+
+/* Envelope 02: Floating Resting State */
+@keyframes envelopeFloatRest {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-0.6deg);
+  }
+}
+
+@keyframes paperSparkleRise {
+  0% {
+    transform: translateY(0) scale(0.6) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-44px) scale(1.15) rotate(50deg);
+    opacity: 0;
+  }
+}
+
+/* Envelope 03: Border Running Light Beam */
+@keyframes borderLightBeam {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 250% 0%;
+  }
+}
+
+/* Envelope 05: Stardust Fade */
+@keyframes stardustParticleFade {
+  0% {
+    transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -75%) scale(0.2) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes starburstPulse {
+  0% {
+    transform: scale(0.35);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* Envelope 06: Petal Drift */
+@keyframes petalDriftDown {
+  0% {
+    transform: translateY(-12px) translateX(0) rotate(0deg);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateY(65px) translateX(16px) rotate(50deg);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(145px) translateX(-12px) rotate(100deg);
+    opacity: 0;
+  }
+}
+
+/* Envelope 08: Golden Seal Ripple */
+@keyframes sealRippleRing {
+  0% {
+    transform: translate(-50%, -50%) scale(0.18);
+    opacity: 0.95;
+  }
+  75% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4.4);
+    opacity: 0;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .envelope-float-resting {
+    animation: none !important;
+  }
+  .petal-falling,
+  .stardust-particle,
+  .seal-ripple-wave {
+    display: none !important;
+  }
+}
+
+
