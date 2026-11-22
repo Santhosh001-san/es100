@@ -547,6 +547,22 @@ export const InteractiveEnvelopeCard = ({ envelope, isOpened, index, onTriggerOp
         />
       )}
 
+      {/* Envelope 10: Grand Birthday Invitation Champagne-Gold & Lavender Light Trails */}
+      {envelope.id === 10 && (
+        <div
+          className="light-trail-orbit"
+          style={{
+            position: 'absolute',
+            inset: '-2px',
+            borderRadius: '22px',
+            background: 'conic-gradient(from 0deg, transparent 0%, rgba(212, 175, 55, 0.85) 25%, transparent 50%, rgba(132, 94, 194, 0.75) 75%, transparent 100%)',
+            animation: 'lightTrailOrbit 3.2s linear infinite',
+            zIndex: 1,
+            pointerEvents: 'none'
+          }}
+        />
+      )}
+
       {/* =========================================================================
           REALISTIC ENVELOPE PHYSICAL FOLDS & FLAP
           ========================================================================= */}
@@ -647,51 +663,96 @@ export const InteractiveEnvelopeCard = ({ envelope, isOpened, index, onTriggerOp
         </div>
       </div>
 
-      {/* Center: Wax Seal & Title */}
+      {/* Center: Wax Seal OR Grand Invitation Crest (Envelope 10) & Title */}
       <div style={{ textAlign: 'center', margin: '16px 0 10px', position: 'relative', zIndex: 4 }}>
-        {/* Embossed Wax Seal */}
-        <motion.div
-          animate={
-            isOpening && envelope.id === 8
-              ? { scale: [1, 0.86, 1.15] }
-              : isOpening && envelope.id === 1
-              ? { scale: 1.15, filter: 'drop-shadow(0 0 16px #D4AF37)' }
-              : isHovered
-              ? { scale: 1.1, rotate: 3 }
-              : { scale: 1, rotate: 0 }
-          }
-          transition={{ type: 'spring', stiffness: 380, damping: 16 }}
-          style={{
-            width: '50px',
-            height: '50px',
-            borderRadius: '50%',
-            background: `radial-gradient(circle at 32% 32%, #FFF4C2 0%, ${envelope.sealColor} 65%, #3B1E05 100%)`,
-            margin: '0 auto 10px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#FFFDF9',
-            boxShadow: isOpened
-              ? '0 4px 12px rgba(0, 0, 0, 0.15)'
-              : '0 6px 16px rgba(181, 138, 56, 0.4), 0 0 14px rgba(212, 175, 55, 0.3)',
-            fontSize: '20px',
-            fontFamily: "'Cinzel', serif",
-            border: '2px solid rgba(255, 255, 255, 0.65)',
-            position: 'relative'
-          }}
-        >
-          {/* Wax Rim Relief */}
-          <div
+        {envelope.id === 10 ? (
+          /* ENVELOPE 10: Grand Birthday Invitation Crest (NO DUPLICATE WAX SEAL) */
+          <motion.div
+            animate={
+              isOpening
+                ? { scale: 1.15, filter: 'drop-shadow(0 0 18px rgba(212, 175, 55, 0.9))' }
+                : isHovered
+                ? { scale: 1.08, y: -2 }
+                : { scale: 1, y: 0 }
+            }
+            transition={{ type: 'spring', stiffness: 350, damping: 15 }}
             style={{
-              position: 'absolute',
-              inset: '3px',
-              borderRadius: '50%',
-              border: '1px dashed rgba(255,255,255,0.4)',
-              pointerEvents: 'none'
+              width: '68px',
+              height: '48px',
+              borderRadius: '12px',
+              background: 'linear-gradient(135deg, #FFF7DC 0%, #E5BE53 50%, #B88D28 100%)',
+              margin: '0 auto 10px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#34224C',
+              boxShadow: '0 6px 18px rgba(212, 175, 55, 0.45), 0 0 16px rgba(132, 94, 194, 0.35)',
+              border: '2px solid rgba(255, 255, 255, 0.85)',
+              position: 'relative'
             }}
-          />
-          <span>{envelope.sealEmblem}</span>
-        </motion.div>
+          >
+            <div
+              style={{
+                position: 'absolute',
+                inset: '2px',
+                borderRadius: '9px',
+                border: '1px dashed rgba(255, 255, 255, 0.6)',
+                pointerEvents: 'none'
+              }}
+            />
+            <span style={{ fontSize: '15px', fontWeight: 900, fontFamily: "'Cinzel', serif", letterSpacing: '0.08em', lineHeight: 1 }}>
+              100
+            </span>
+            <span style={{ fontSize: '7.5px', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#4B316E', marginTop: '2px' }}>
+              INVITATION
+            </span>
+          </motion.div>
+        ) : (
+          /* ENVELOPES 01-09: Embossed Wax Seal */
+          <motion.div
+            animate={
+              isOpening && envelope.id === 8
+                ? { scale: [1, 0.86, 1.15] }
+                : isOpening && envelope.id === 1
+                ? { scale: 1.15, filter: 'drop-shadow(0 0 16px #D4AF37)' }
+                : isHovered
+                ? { scale: 1.1, rotate: 3 }
+                : { scale: 1, rotate: 0 }
+            }
+            transition={{ type: 'spring', stiffness: 380, damping: 16 }}
+            style={{
+              width: '50px',
+              height: '50px',
+              borderRadius: '50%',
+              background: `radial-gradient(circle at 32% 32%, #FFF4C2 0%, ${envelope.sealColor} 65%, #3B1E05 100%)`,
+              margin: '0 auto 10px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#FFFDF9',
+              boxShadow: isOpened
+                ? '0 4px 12px rgba(0, 0, 0, 0.15)'
+                : '0 6px 16px rgba(181, 138, 56, 0.4), 0 0 14px rgba(212, 175, 55, 0.3)',
+              fontSize: '20px',
+              fontFamily: "'Cinzel', serif",
+              border: '2px solid rgba(255, 255, 255, 0.65)',
+              position: 'relative'
+            }}
+          >
+            {/* Wax Rim Relief */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: '3px',
+                borderRadius: '50%',
+                border: '1px dashed rgba(255,255,255,0.4)',
+                pointerEvents: 'none'
+              }}
+            />
+            <span>{envelope.sealEmblem}</span>
+          </motion.div>
+        )}
 
         {/* Envelope Title */}
         <h4
@@ -743,7 +804,7 @@ export const InteractiveEnvelopeCard = ({ envelope, isOpened, index, onTriggerOp
               gap: '4px'
             }}
           >
-            <Check size={12} /> OPENED
+            <Check size={12} /> {envelope.id === 10 ? 'UNFOLDED' : 'OPENED'}
           </span>
         ) : (
           <span
@@ -757,7 +818,7 @@ export const InteractiveEnvelopeCard = ({ envelope, isOpened, index, onTriggerOp
               gap: '4px'
             }}
           >
-            <Sparkles size={11} /> SEALED
+            <Sparkles size={11} /> {envelope.id === 10 ? 'GRAND INVITATION' : 'SEALED'}
           </span>
         )}
 
@@ -769,7 +830,7 @@ export const InteractiveEnvelopeCard = ({ envelope, isOpened, index, onTriggerOp
             textDecoration: 'underline'
           }}
         >
-          {isOpened ? 'Read Again' : 'Tap to Open'}
+          {isOpened ? 'Read Again' : envelope.id === 10 ? 'Tap to Unfold' : 'Tap to Open'}
         </span>
       </div>
     </motion.div>

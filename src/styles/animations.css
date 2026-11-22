@@ -470,14 +470,89 @@
   }
 }
 
+/* Envelope 10: Grand Birthday Invitation Light Trails Orbit */
+@keyframes lightTrailOrbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Envelope 07: Rubber Stamp Press Down Effect */
+@keyframes stampPressDown {
+  0% {
+    transform: scale(1.3) translateY(-14px) rotate(-6deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.96) translateY(2px) rotate(1deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Envelope 08: Interactive Liquid Water Ripple Wave */
+@keyframes magicRippleWave {
+  0% {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(5);
+    opacity: 0;
+  }
+}
+
+/* Envelope 02: Floating Keepsake Gentle Bounce */
+@keyframes floatingKeepsake {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(4deg);
+  }
+}
+
+/* Envelope 03: Prismatic Glow Pulse */
+@keyframes prismaticGlow {
+  0%, 100% {
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.4);
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(255, 230, 140, 0.85);
+    filter: drop-shadow(0 0 16px rgba(255, 230, 140, 0.9));
+  }
+}
+
+/* Envelope 05: Constellation Star Pulse */
+@keyframes constellationStarGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+    filter: drop-shadow(0 0 10px #FFF7D1);
+  }
+}
+
 /* Reduced Motion Override */
 @media (prefers-reduced-motion: reduce) {
-  .envelope-float-resting {
+  .envelope-float-resting,
+  .light-trail-orbit {
     animation: none !important;
   }
   .petal-falling,
   .stardust-particle,
-  .seal-ripple-wave {
+  .seal-ripple-wave,
+  .magic-ripple-ring {
     display: none !important;
   }
 }
