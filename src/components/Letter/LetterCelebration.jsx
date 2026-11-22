@@ -40,8 +40,19 @@ export const LetterCelebration = ({ onReplay, onReadLetter, onClose }) => {
       // Show final message after initial fireworks burst
       const msgTimer = setTimeout(() => {
         setShowFinalMessage(true);
-      }, 3000);
-      return () => clearTimeout(msgTimer);
+      }, 2500);
+
+      // Smoothly transition into the letter reveal after the fireworks sequence
+      const letterTimer = setTimeout(() => {
+        if (onReadLetter) {
+          onReadLetter();
+        }
+      }, 5500);
+
+      return () => {
+        clearTimeout(msgTimer);
+        clearTimeout(letterTimer);
+      };
     }
   }, [phase, countdown]);
 

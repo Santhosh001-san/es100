@@ -1,20 +1,25 @@
-// The Final Letter Data for Commander Estelle
-// Exact message as requested in Section 8 of the redesign brief
+// The Final Celebration Letter Data for Commander Estelle
+// 100-Day Milestone Keepsake Dispatch
 
 export const letterData = {
+  title: "THE FINAL CELEBRATION",
+  badge: "DAY 100 KEEPSAKE DISPATCH • SPECIAL COMMENDATION",
   recipient: "Commander Estelle",
-  salutation: "Dear Commander Estelle,",
+  salutation: "To Commander Estelle,",
   paragraphs: [
-    "It's funny how certain people slowly become part of your everyday thoughts without even trying.",
-    "Between the random conversations, unexpected laughs and little moments, these 100 days have turned into something quite lovely.",
-    "Sometimes, a simple conversation can make an ordinary day feel a little brighter.",
-    "I wanted to create something a little different for you. Nothing too grand, nothing that needs a big explanation.",
-    "Just a small collection of thoughts, little surprises and a reminder that you are appreciated more than you might realise.",
-    "Here's to more unexpected smiles, beautiful moments and conversations that never seem to run out."
+    "Well, Commander… look at that! We actually made it to 100 days! 🎉",
+    "One hundred days of random conversations, unexpected laughs, little surprises and moments that somehow became memorable. Honestly, who planned all this? Because I definitely deserve at least a tiny award for surviving my own random thoughts! 😂",
+    "But jokes aside, I genuinely hope life gives you countless reasons to smile. May your days be filled with exciting adventures, peaceful moments, unexpected good news and the kind of happiness that stays with you long after the moment has passed.",
+    "I hope you make beautiful memories with your family — more laughter at home, wonderful little outings, delicious meals, silly conversations and moments that become your favourite memories. And with your friends, may there always be spontaneous plans, unforgettable adventures, endless inside jokes and laughter that makes everyone forget what they were even laughing about! 😄",
+    "I hope the people around you remind you how special and appreciated you are. May you always have someone to celebrate your victories, someone to listen when you need it, and someone who can turn an ordinary day into a wonderful one.",
+    "And please remember: life doesn't have to be perfect to be wonderful. Some of its best moments arrive without warning — just like this little celebration. So keep collecting those happy moments, keep being yourself, and never run out of reasons to laugh.",
+    "Here's to more silly conversations, unexpected adventures, beautiful memories and many more milestones ahead."
   ],
-  closingGreeting: "Happy 100 Days, Commander Estelle.",
-  closingReflection: "Some things are difficult to put into words. Perhaps that's what makes them special.",
-  signature: "— Yours Lovingly, Silly Goose",
+  milestoneBanner: "100 days completed. Countless memories still waiting.",
+  closingGreeting: "Happy 100 Days, Commander Estelle! 💛",
+  signaturePrefix: "Yours Lovingly,",
+  signatureAuthor: "Silly Goose",
+  signature: "Yours Lovingly,\nSilly Goose",
   waxSealMonogram: "E",
   dateStamp: "100-Day Milestone"
 };
