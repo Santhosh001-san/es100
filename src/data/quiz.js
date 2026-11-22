@@ -10,8 +10,8 @@ export const quizData = {
     {
       id: 1,
       number: "01",
-      question: "Who is more likely to laugh at their own joke before finishing it? 😂",
-      shortLabel: "Laughing at own joke",
+      question: "Who is secretly the CEO of making absolutely no sense but somehow making every conversation entertaining? 😭😂",
+      shortLabel: "CEO of entertaining conversations",
       options: {
         commander: {
           id: "commander",
@@ -40,8 +40,8 @@ export const quizData = {
     {
       id: 2,
       number: "02",
-      question: "Who is more likely to forget what they were saying in the middle of a conversation? 🤣",
-      shortLabel: "Mid-sentence amnesia",
+      question: "Who is more likely to laugh at a random thought and then struggle to explain why it's funny? 🤣",
+      shortLabel: "Laughing at random thought",
       options: {
         commander: {
           id: "commander",
