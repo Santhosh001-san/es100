@@ -1,7 +1,7 @@
 // Fun Challenge Quiz Data for Commander Estelle
-// SECRET LOGIC: Commander is ALWAYS the winner in all 5 questions.
-// If "Commander" is picked: funny, flattering response celebrating her.
-// If "Me" is picked: playful response showing him as the innocent, sensible, good-hearted person while Commander still wins!
+// STRICT QUESTION-BASED FEEDBACK ARCHITECTURE:
+// 1. Commander Estelle option: ALWAYS genuine, sweet, charming compliments praising her personality, intelligence, contagious laughter, and unique energy.
+// 2. Me option: ALWAYS hilarious, witty self-roasts where I playfully admit my own silly, clumsy, or confused behavior without Commander ever being the target.
 
 export const quizData = {
   title: "COMMANDER TACTICAL TEST",
@@ -17,22 +17,22 @@ export const quizData = {
           id: "commander",
           label: "Commander",
           subtitle: "Supreme Command privilege",
-          badge: "Comedy Department CEO",
+          badge: "Supreme Entertainment CEO",
           responses: [
-            "Obviously Commander! Even her jokes come with their own entertainment package! 😂",
-            "100% Commander! The delivery is only halfway through, but the giggles are already running at maximum capacity! 🤣",
-            "Commander takes the gold medal! The comedy show begins before the sentence even ends! 😂"
+            "Commander doesn’t follow boring textbook logic—she invents her own! Her thoughts move with such spontaneous charm and brilliant creativity that even the most random topic turns into pure comedy gold. Every chat with her is ten times brighter and impossible not to love! ✨👑",
+            "Official decree: Commander holds the master key to top-tier entertainment! She can jump from topic A to galaxy Z in three seconds, and somehow it’s the funniest, most delightful thing you'll hear all day! 🌟💖",
+            "Supreme Entertainment CEO forever! Her charismatic, joyful energy makes even total nonsense feel like an award-winning comedy special. The world is just so much happier with Commander in it! 💛✨"
           ]
         },
         me: {
           id: "me",
           label: "Me",
           subtitle: "Guilty as charged?",
-          badge: "The Innocent Listener",
+          badge: "CEO of Zero Direction",
           responses: [
-            "Aww, look at you taking responsibility! But Commander still owns the comedy department! 🤣",
-            "He was just trying to be polite and innocent! Commander is the real laugh champion! 😂",
-            "Nice try taking the blame! But official records confirm Commander holds the comedy crown 100%! 👑"
+            "Look, I will fully admit it—I once spent seven solid minutes explaining a grand theory to Commander, only to stop midway and realize even my own brain had completely lost the plot. She was entertained purely by the sheer scale of my confusion! 😭🤦‍♂️",
+            "Guilty as charged! I start sentences with 100% confidence, take three completely unnecessary detours, and end up asking: 'Wait, what was I talking about again?' Walking loading screen behavior! 💀😂",
+            "My train of thought didn't just derail—it packed its bags and left the country. If making zero sense while sounding completely serious was an Olympic sport, I’d take home all three medals! 🤣🎪"
           ]
         }
       }
@@ -47,22 +47,22 @@ export const quizData = {
           id: "commander",
           label: "Commander",
           subtitle: "100 tabs open at once",
-          badge: "Mach-5 Brain Engine",
+          badge: "Radiant Giggle Champion",
           responses: [
-            "Commander has 100 tabs open in her brain, and every single one is interesting! 😂",
-            "Commander's thoughts move faster than high-speed internet! A 10/10 tactical reset! 🚀",
-            "Not forgotten—just classified as Top Secret mid-sentence by the Commander herself! 🤣"
+            "Commander’s laughter is genuinely one of the sweetest, most contagious things in the universe! Her brain is full of such delightful, sparkling thoughts that when she starts giggling, she doesn’t even need an explanation—her pure happiness alone lights up the whole room! 🌟💖",
+            "When Commander starts laughing at an internal thought, the world automatically becomes a happier place! You don’t even need to know the punchline; her genuine joy is so cute and magnetic that everyone laughs along with her! 😂✨",
+            "Commander operates on a secret cosmic humor frequency! Those spontaneous little giggles show just how playful and radiant her spirit is. Undisputed champion of joyful smiles! 💛👑"
           ]
         },
         me: {
           id: "me",
           label: "Me",
           subtitle: "Just listening carefully",
-          badge: "Patient Bystander",
+          badge: "Solo Wheezing Hazard",
           responses: [
-            "He was just listening carefully! Commander is the one keeping the conversation exciting! 😇",
-            "He was sitting there being a quiet, well-behaved listener while Commander took us on a scenic brain-detour! 😂",
-            "Look at you being sweet and taking the rap! But Commander is definitely the master of the mid-sentence cliffhanger! 🤣"
+            "That is 100% me. I will remember a ridiculous meme from three years ago, start wheezing like a dying kettle, and when Commander asks what’s funny, all I can stammer is: '...it made sense in my head, please don't judge me!' 💀🫖",
+            "I once laughed so unexpectedly at my own stray thought that I choked on air, panicked, and had to pretend I had a coughing fit rather than admit how absurd my brain is! 😭😂",
+            "My internal humor is a national hazard. My brain generates a joke at 2 AM that makes me giggle like an idiot, and the moment I try to explain it out loud, it sounds like an alien trying to describe bread! 👽🤣"
           ]
         }
       }
@@ -77,22 +77,22 @@ export const quizData = {
           id: "commander",
           label: "Commander",
           subtitle: "Supreme Chaos & Charm",
-          badge: "Grand Champion of Chaos",
+          badge: "Grand Trophy for Spontaneous Brilliance",
           responses: [
-            "The award goes to Commander! Predictability has officially resigned! 🏆",
-            "Supreme Unpredictable Legend! NASA radar couldn't calculate Commander's next move if they tried! 🌟",
-            "Unanimous decree: Commander turns being unpredictable into an Olympic art form! 🏆"
+            "Predictable is boring; Commander is a living work of art! She deserves this trophy because her creativity, spontaneous wit, and unique perspective keep life endlessly exciting. You never know what wonderful thing she’ll say next, and that’s what makes her extraordinary! 🏆✨",
+            "Grand trophy awarded to Commander! She has this dazzling ability to surprise you with the most thoughtful remarks, funniest ideas, and sweetest gestures when you least expect it. A truly one-of-a-kind soul! 🌟💖",
+            "NASA radar couldn't calculate Commander’s next move if they tried! She brings that rare, magical spark that turns ordinary moments into unforgettable memories. The trophy is 1000% hers! 👑💛"
           ]
         },
         me: {
           id: "me",
           label: "Me",
           subtitle: "Trying to be diplomatic",
-          badge: "Sensible Supporter",
+          badge: "Unpredictably Clumsy Spectator",
           responses: [
-            "He tried to be diplomatic, but we all know Commander deserves that trophy! 😂",
-            "He's just an innocent spectator in this universe! The grand trophy belongs strictly to Commander! 🏆",
-            "You trying to steal the chaos crown? Not on this website! Commander wins this award 10 times out of 10! 🤣"
+            "The only unpredictable thing about me is whether I’ll trip over flat ground or accidentally put the cereal box in the fridge and the milk in the pantry. I don’t have unpredictable charm—I just have unpredictable coordination! 🚶‍♂️💥",
+            "I am unpredictable purely in my ability to misplace my phone while holding it in my hand. Commander is navigating life with brilliance, and I’m here patting my pockets in genuine panic! 😭📱",
+            "My life is an unpredictable sequence of weird accidents. Yesterday I tried to throw a tissue into the bin and managed to hit myself in the face. Zero coordination, maximum comedy! 🤦‍♂️🗑️"
           ]
         }
       }
@@ -107,22 +107,22 @@ export const quizData = {
           id: "commander",
           label: "Commander",
           subtitle: "Premium Entertainment",
-          badge: "Blockbuster Director",
+          badge: "Passionate Visionary",
           responses: [
-            "Commander doesn't create drama. She creates premium entertainment! 🎬",
-            "A 5-alarm tactical crisis over what snack to pick? Classic Commander perfection! 😭",
-            "Every minor decision gets the full Hollywood blockbuster treatment! Absolutely iconic Commander energy! 🍿"
+            "Commander doesn’t create crises—she brings cinematic passion! She pours so much genuine heart, care, and excitement into even the smallest choices that picking a snack feels like an epic adventure. That energetic dedication is honestly so charming and special! 🎬💖",
+            "When Commander weighs her options, it’s not drama—it’s pure perfectionism! She cares about doing things wonderfully, and listening to her passionate debates about life’s little details is the sweetest entertainment ever! ✨🍿",
+            "Commander treats every moment with the importance of a Hollywood premiere! Her expressive, enthusiastic reactions make life vibrant and colorful. Never a dull second with Commander! 🌟👑"
           ]
         },
         me: {
           id: "me",
           label: "Me",
           subtitle: "Keeping the peace",
-          badge: "Chief Peacekeeper",
+          badge: "Aisle Paralysis Record-Holder",
           responses: [
-            "He's just trying to keep the peace. Commander makes even tiny decisions memorable! 😭",
-            "He was ready with a calm, sensible answer... while Commander turned it into an international diplomatic summit! 🤣",
-            "He's just an innocent bystander trying not to push the wrong button! Commander takes the drama award with honors! 🎬"
+            "I will literally stand in a grocery aisle for fifteen minutes having a full philosophical breakdown over two brands of biscuits. My brain treats ordering takeout like negotiating a United Nations peace treaty—it's deeply tragic! 😭🛒",
+            "Choosing what movie to watch? I’ll spend 45 minutes reading reviews, watch three trailers, debate the director's artistic vision, and then fall asleep during the opening studio logo! 💀😴",
+            "My decision-making algorithm: overthink for two hours, panic, flip a coin, and then immediately regret the coin flip. Commander has to watch this live tragedy unfold every time! 🪙🤦‍♂️"
           ]
         }
       }
@@ -137,22 +137,22 @@ export const quizData = {
           id: "commander",
           label: "Commander",
           subtitle: "Chief Adventure Officer",
-          badge: "Chief Adventure Officer",
+          badge: "Chief Catalyst of Magic & Adventure",
           responses: [
-            "Commander can turn an ordinary day into a legendary story! ✨",
-            "Commander's presence automatically upgrades a boring Tuesday into an epic blockbuster side-quest! 🚀",
-            "Chief Adventure Officer badge permanently pinned to Commander! Never a dull moment in 100 days! 🏆"
+            "Commander has that rare golden gift—her presence alone can take a completely ordinary Tuesday and turn it into a memory you’ll look back on and smile about for months. She is the true adventure catalyst, bringing magic and laughter wherever she goes! 🚀✨",
+            "Every day with Commander feels like discovering a new little world filled with laughter and warmth. Her playful spirit and contagious enthusiasm make even the simplest routine feel like a grand celebration! 🌟💖",
+            "Chief Adventure Officer for life! Commander turns ordinary conversations into legendary adventures and makes everyone around her feel excited about tomorrow. Absolutely irreplaceable! 👑💛"
           ]
         },
         me: {
           id: "me",
           label: "Me",
           subtitle: "Minding his business",
-          badge: "Peaceful Passenger",
+          badge: "Wrong-Exit Navigator",
           responses: [
-            "He was peacefully minding his own business... then Commander made life interesting! 😂",
-            "He was just being a calm, sensible boy... and then Commander said 'hear me out' and reality changed! 🤣",
-            "He thought it was going to be a normal quiet day. Commander had other plans. Best plans ever! ✨"
+            "My idea of an 'unexpected adventure' is taking one wrong exit on a straight road and ending up in a minor panic while Google Maps gently mocks my life choices. If I’m in charge of the adventure, please bring emergency snacks! 🚗🗺️",
+            "I once went out for bread and somehow ended up locked on my own balcony in mismatched socks for an hour. That wasn’t an adventure—that was an amateur survival documentary! 🧦🚪",
+            "If Commander and I are on an adventure, please let her hold the compass. Left to my own devices, I will confidently walk 20 minutes in the exact opposite direction while humming cheerfully! 🧭😂"
           ]
         }
       }

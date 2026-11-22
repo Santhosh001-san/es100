@@ -69,13 +69,24 @@ export const QuizSection = ({ onProceedToEnvelopes }) => {
       console.warn('Failed to save quiz answer:', e);
     }
 
-    // Celebratory sparkles
-    confetti({
-      particleCount: 28,
-      spread: 60,
-      origin: { y: 0.65 },
-      colors: ['#D4AF37', '#8B6FA9', '#F8D7E3', '#FFF9EA']
-    });
+    // Celebratory sparkles tailored to option
+    if (optionKey === 'commander') {
+      confetti({
+        particleCount: 28,
+        spread: 58,
+        origin: { y: 0.65 },
+        colors: ['#D4AF37', '#FFE89E', '#FFF5D0', '#E5BE53'],
+        shapes: ['star', 'circle']
+      });
+    } else {
+      confetti({
+        particleCount: 24,
+        spread: 48,
+        origin: { y: 0.65 },
+        colors: ['#8B6FA9', '#C8A2C8', '#D4AF37', '#E8DAF5'],
+        shapes: ['circle']
+      });
+    }
 
     // If this selection completes all 5 questions, fire grand fanfare for Commander!
     if (Object.keys(updated).length === quizData.questions.length && answeredCount < quizData.questions.length) {
@@ -828,79 +839,164 @@ export const QuizSection = ({ onProceedToEnvelopes }) => {
                     })()}
                   </div>
 
-                  {/* INSTANT PLAYFUL HUMOROUS RESPONSE - ALWAYS PROCLAIMING COMMANDER AS WINNER */}
+                  {/* INSTANT QUESTION-SPECIFIC FEEDBACK: COMMANDER APPRECIATION (GOLDEN GLOW) OR SELF-ROAST (PLAYFUL BOUNCE) */}
                   <AnimatePresence mode="wait">
-                    {currentAnswer && (
-                      <motion.div
-                        key={`${activeQuestion.id}-${currentAnswer.optionId}-${currentAnswer.responseIndex}`}
-                        initial={{ opacity: 0, y: 14, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                        transition={{ duration: 0.3 }}
-                        style={{
-                          background: 'linear-gradient(135deg, #FFFDF8 0%, #FFF8EA 100%)',
-                          border: '1.5px solid rgba(212, 175, 55, 0.55)',
-                          borderRadius: '16px',
-                          padding: '18px 22px',
-                          boxShadow: '0 8px 22px rgba(212, 175, 55, 0.16)',
-                          marginBottom: '24px'
-                        }}
-                      >
-                        <div
+                    {currentAnswer && (() => {
+                      const isCommander = currentAnswer.optionId === 'commander';
+                      const qId = activeQuestion.id;
+
+                      // Animation transition fine-tuned to question context
+                      const animationConfig = isCommander
+                        ? {
+                            initial: { opacity: 0, y: 16, scale: 0.98 },
+                            animate: { opacity: 1, y: 0, scale: 1 },
+                            exit: { opacity: 0, y: -10, scale: 0.98 },
+                            transition: {
+                              duration: qId === 1 ? 0.38 : qId === 2 ? 0.42 : qId === 3 ? 0.46 : qId === 4 ? 0.44 : 0.48,
+                              ease: [0.16, 1, 0.3, 1]
+                            }
+                          }
+                        : {
+                            initial: { opacity: 0, scale: 0.90, y: -8 },
+                            animate: { opacity: 1, scale: [0.90, 1.03, 1], y: 0 },
+                            exit: { opacity: 0, scale: 0.95, y: 8 },
+                            transition: {
+                              type: 'spring',
+                              damping: qId === 1 ? 12 : qId === 2 ? 11 : qId === 3 ? 13 : qId === 4 ? 14 : 12,
+                              stiffness: qId === 1 ? 360 : qId === 2 ? 330 : qId === 3 ? 300 : qId === 4 ? 380 : 320
+                            }
+                          };
+
+                      return (
+                        <motion.div
+                          key={`${activeQuestion.id}-${currentAnswer.optionId}-${currentAnswer.responseIndex}`}
+                          initial={animationConfig.initial}
+                          animate={animationConfig.animate}
+                          exit={animationConfig.exit}
+                          transition={animationConfig.transition}
                           style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            marginBottom: '6px'
+                            background: isCommander
+                              ? 'linear-gradient(135deg, #FFFDF8 0%, #FFF9EB 55%, #FFF3D6 100%)'
+                              : 'linear-gradient(135deg, #FFFEFD 0%, #FAF4FD 55%, #F2E4FA 100%)',
+                            border: isCommander
+                              ? '1.5px solid rgba(212, 175, 55, 0.65)'
+                              : '1.5px solid rgba(123, 94, 153, 0.45)',
+                            borderRadius: '16px',
+                            padding: '18px 22px',
+                            boxShadow: isCommander
+                              ? '0 12px 30px rgba(212, 175, 55, 0.22), 0 0 20px rgba(255, 230, 150, 0.22)'
+                              : '0 10px 26px rgba(123, 94, 153, 0.16), 0 0 16px rgba(123, 94, 153, 0.1)',
+                            marginBottom: '24px',
+                            position: 'relative',
+                            overflow: 'hidden'
                           }}
                         >
-                          <Crown size={15} color="#D4AF37" />
-                          <span
-                            className="font-cinzel"
+                          {/* Floating Decorative Sparkles / Laugh Particles */}
+                          {isCommander ? (
+                            <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden', borderRadius: '16px' }}>
+                              <span className="quiz-gold-sparkle qgs-1">✦</span>
+                              <span className="quiz-gold-sparkle qgs-2">★</span>
+                              <span className="quiz-gold-sparkle qgs-3">✨</span>
+                              <span className="quiz-gold-sparkle qgs-4">✦</span>
+                            </div>
+                          ) : (
+                            <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden', borderRadius: '16px' }}>
+                              <span className="quiz-roast-particle qrp-1">😂</span>
+                              <span className="quiz-roast-particle qrp-2">✨</span>
+                              <span className="quiz-roast-particle qrp-3">🤣</span>
+                              <span className="quiz-roast-particle qrp-4">💫</span>
+                            </div>
+                          )}
+
+                          {/* Verdict Header Badge */}
+                          <div
                             style={{
-                              fontSize: '11px',
-                              fontWeight: 800,
-                              letterSpacing: '0.12em',
-                              color: '#96741F'
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '8px',
+                              marginBottom: '6px',
+                              position: 'relative',
+                              zIndex: 1
                             }}
                           >
-                            OFFICIAL VERDICT • WINNER: COMMANDER! 🏆
-                          </span>
-                        </div>
+                            {isCommander ? (
+                              <>
+                                <Crown size={15} color="#D4AF37" />
+                                <span
+                                  className="font-cinzel"
+                                  style={{
+                                    fontSize: '11px',
+                                    fontWeight: 800,
+                                    letterSpacing: '0.12em',
+                                    color: '#96741F'
+                                  }}
+                                >
+                                  OFFICIAL VERDICT • COMMANDER APPRECIATION 🌟
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <Sparkles size={15} color="#8B6FA9" />
+                                <span
+                                  className="font-cinzel"
+                                  style={{
+                                    fontSize: '11px',
+                                    fontWeight: 800,
+                                    letterSpacing: '0.12em',
+                                    color: '#6A4D85'
+                                  }}
+                                >
+                                  OFFICIAL VERDICT • UNFILTERED SELF-ROAST 😂
+                                </span>
+                              </>
+                            )}
+                          </div>
 
-                        <p
-                          className="font-cormorant"
-                          style={{
-                            margin: 0,
-                            fontSize: '19px',
-                            color: '#44321A',
-                            lineHeight: 1.5,
-                            fontStyle: 'italic',
-                            fontWeight: 600
-                          }}
-                        >
-                          “{currentAnswer.response}”
-                        </p>
+                          {/* Main Feedback Message Quote */}
+                          <p
+                            className="font-cormorant"
+                            style={{
+                              margin: 0,
+                              fontSize: '19px',
+                              color: isCommander ? '#3D2608' : '#341F48',
+                              lineHeight: 1.5,
+                              fontStyle: 'italic',
+                              fontWeight: 600,
+                              textShadow: isCommander ? '0 0 16px rgba(212, 175, 55, 0.28)' : 'none',
+                              position: 'relative',
+                              zIndex: 1
+                            }}
+                          >
+                            “{currentAnswer.response}”
+                          </p>
 
-                        <div
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            marginTop: '10px',
-                            paddingTop: '8px',
-                            borderTop: '1px dashed rgba(212, 175, 55, 0.3)',
-                            fontSize: '11px',
-                            color: '#9C7A28',
-                            flexWrap: 'wrap',
-                            gap: '6px'
-                          }}
-                        >
-                          <span style={{ fontWeight: 700 }}>✦ Tactical Role: {currentAnswer.badge}</span>
-                          <span style={{ fontStyle: 'italic' }}>Tap option again for more funny commentary</span>
-                        </div>
-                      </motion.div>
-                    )}
+                          {/* Footer Tag & Cycling Hint */}
+                          <div
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              marginTop: '10px',
+                              paddingTop: '8px',
+                              borderTop: isCommander ? '1px dashed rgba(212, 175, 55, 0.35)' : '1px dashed rgba(123, 94, 153, 0.25)',
+                              fontSize: '11px',
+                              color: isCommander ? '#9C7A28' : '#765798',
+                              flexWrap: 'wrap',
+                              gap: '6px',
+                              position: 'relative',
+                              zIndex: 1
+                            }}
+                          >
+                            <span style={{ fontWeight: 700 }}>
+                              ✦ {isCommander ? 'Tactical Title' : 'Silly Status'}: {currentAnswer.badge}
+                            </span>
+                            <span style={{ fontStyle: 'italic' }}>
+                              Tap option again for more {isCommander ? 'praise' : 'reactions'}
+                            </span>
+                          </div>
+                        </motion.div>
+                      );
+                    })()}
                   </AnimatePresence>
 
                   {/* BOTTOM ACTION BAR: RETURN TO LIST & QUESTION CYCLING */}
