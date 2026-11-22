@@ -33,7 +33,7 @@ export const Envelope04_UnfoldingStory = ({ envelope, onClose }) => {
 
   return (
     <motion.div
-      initial={{ scale: 0.8, opacity: 0, y: 35 }}
+      initial={{ scale: 0.82, opacity: 0, y: 35 }}
       animate={{ scale: 1, opacity: 1, y: 0 }}
       exit={{ scale: 0.85, opacity: 0, y: 20 }}
       transition={{ type: 'spring', damping: 25, stiffness: 280 }}
@@ -43,13 +43,13 @@ export const Envelope04_UnfoldingStory = ({ envelope, onClose }) => {
         borderRadius: '26px',
         maxWidth: '650px',
         width: '100%',
-        maxHeight: '90vh',
-        overflowY: 'auto',
-        padding: 'clamp(28px, 4.5vw, 38px) clamp(18px, 4vw, 30px) 28px',
+        margin: 'auto 0',
+        padding: 'clamp(28px, 4.5vw, 38px) clamp(18px, 4vw, 30px) clamp(36px, 5vw, 48px)',
         boxShadow: '0 28px 75px rgba(132, 94, 194, 0.35), 0 0 45px rgba(220, 195, 245, 0.35)',
         border: '2px solid rgba(132, 94, 194, 0.65)',
         position: 'relative',
-        textAlign: 'center'
+        textAlign: 'center',
+        touchAction: 'pan-y'
       }}
     >
       {/* Universal Close Button */}

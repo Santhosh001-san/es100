@@ -16,9 +16,9 @@ export const Envelope09_MemoryUnlocked = ({ envelope, onClose }) => {
 
   return (
     <motion.div
-      initial={{ scale: 0.78, opacity: 0, y: 35, filter: 'blur(6px)' }}
+      initial={{ scale: 0.82, opacity: 0, y: 35, filter: 'blur(4px)' }}
       animate={{ scale: 1, opacity: 1, y: 0, filter: 'blur(0px)' }}
-      exit={{ scale: 0.82, opacity: 0, y: 20, filter: 'blur(4px)' }}
+      exit={{ scale: 0.85, opacity: 0, y: 20, filter: 'blur(4px)' }}
       transition={{ type: 'spring', damping: 25, stiffness: 280 }}
       onClick={(e) => e.stopPropagation()}
       style={{
@@ -26,13 +26,13 @@ export const Envelope09_MemoryUnlocked = ({ envelope, onClose }) => {
         borderRadius: '26px',
         maxWidth: '660px',
         width: '100%',
-        maxHeight: '90vh',
-        overflowY: 'auto',
-        padding: 'clamp(28px, 4.5vw, 38px) clamp(18px, 4vw, 30px) 28px',
+        margin: 'auto 0',
+        padding: 'clamp(28px, 4.5vw, 38px) clamp(18px, 4vw, 30px) clamp(36px, 5vw, 48px)',
         boxShadow: '0 30px 85px rgba(181, 138, 56, 0.4), 0 0 55px rgba(212, 175, 55, 0.35)',
         border: '2px solid rgba(212, 175, 55, 0.75)',
         position: 'relative',
-        textAlign: 'center'
+        textAlign: 'center',
+        touchAction: 'pan-y'
       }}
     >
       {/* Universal Close Button */}
@@ -99,7 +99,7 @@ export const Envelope09_MemoryUnlocked = ({ envelope, onClose }) => {
           padding: 'clamp(20px, 3.5vw, 26px)',
           border: '1.5px solid rgba(212, 175, 55, 0.4)',
           boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.02), 0 8px 24px rgba(181, 138, 56, 0.12)',
-          marginBottom: '20px',
+          marginBottom: '22px',
           position: 'relative'
         }}
       >
@@ -162,6 +162,7 @@ export const Envelope09_MemoryUnlocked = ({ envelope, onClose }) => {
             return (
               <motion.button
                 key={tok.day}
+                type="button"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleCardClick(tok.day)}

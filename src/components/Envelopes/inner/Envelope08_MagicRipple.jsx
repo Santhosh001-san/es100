@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { HelpCircle, Waves, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { HelpCircle, Waves } from 'lucide-react';
 import { soundManager } from '../../../utils/audioSynth';
 import { CloseButton } from '../../Common/CloseButton';
 
@@ -10,9 +10,9 @@ export const Envelope08_MagicRipple = ({ envelope, onClose }) => {
 
   // Harmonic ripple points
   const rippleNodes = [
-    { id: 'calm', label: 'Harmonic Pulse', color: '#8B6FA9', x: '18%', y: '16%' },
-    { id: 'laugh', label: 'Wave of Joy', color: '#D4AF37', x: '82%', y: '16%' },
-    { id: 'resilience', label: 'Resilience Tide', color: '#D97D95', x: '50%', y: '8%' }
+    { id: 'calm', label: 'Harmonic Pulse', color: '#8B6FA9' },
+    { id: 'laugh', label: 'Wave of Joy', color: '#D4AF37' },
+    { id: 'resilience', label: 'Resilience Tide', color: '#D97D95' }
   ];
 
   const triggerRippleAt = (x, y, color = '#D4AF37') => {
@@ -23,13 +23,15 @@ export const Envelope08_MagicRipple = ({ envelope, onClose }) => {
       y,
       color
     };
-    setRipples((prev) => [...prev.slice(-5), newRipple]);
+    setRipples((prev) => [...prev.slice(-4), newRipple]);
     setTimeout(() => {
       setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
     }, 1200);
   };
 
   const handleContainerClick = (e) => {
+    // Prevent firing when user clicks buttons, labels or question cards
+    if (e.target.closest('button') || e.target.closest('a')) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -38,7 +40,7 @@ export const Envelope08_MagicRipple = ({ envelope, onClose }) => {
 
   return (
     <motion.div
-      initial={{ scale: 0.8, opacity: 0, y: 35 }}
+      initial={{ scale: 0.82, opacity: 0, y: 35 }}
       animate={{ scale: 1, opacity: 1, y: 0 }}
       exit={{ scale: 0.85, opacity: 0, y: 20 }}
       transition={{ type: 'spring', damping: 25, stiffness: 280 }}
@@ -48,15 +50,14 @@ export const Envelope08_MagicRipple = ({ envelope, onClose }) => {
         borderRadius: '26px',
         maxWidth: '650px',
         width: '100%',
-        maxHeight: '90vh',
-        overflowY: 'auto',
-        padding: 'clamp(28px, 4.5vw, 38px) clamp(18px, 4vw, 30px) 28px',
+        margin: 'auto 0',
+        padding: 'clamp(28px, 4.5vw, 38px) clamp(18px, 4vw, 30px) clamp(36px, 5vw, 48px)',
         boxShadow: '0 30px 80px rgba(0,0,0,0.6), 0 0 50px rgba(139, 111, 169, 0.35)',
         border: '2px solid rgba(139, 111, 169, 0.65)',
         position: 'relative',
         textAlign: 'center',
         color: '#FFFFFF',
-        overflow: 'hidden'
+        touchAction: 'pan-y'
       }}
     >
       {/* Universal Close Button */}
@@ -95,6 +96,7 @@ export const Envelope08_MagicRipple = ({ envelope, onClose }) => {
         {rippleNodes.map((node) => (
           <button
             key={node.id}
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               const rect = e.currentTarget.getBoundingClientRect();
@@ -106,7 +108,7 @@ export const Envelope08_MagicRipple = ({ envelope, onClose }) => {
               );
             }}
             style={{
-              padding: '4px 12px',
+              padding: '6px 14px',
               borderRadius: '20px',
               border: `1px solid ${node.color}88`,
               background: 'rgba(255, 255, 255, 0.08)',
@@ -116,10 +118,10 @@ export const Envelope08_MagicRipple = ({ envelope, onClose }) => {
               cursor: 'pointer',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '5px'
+              gap: '6px'
             }}
           >
-            <Waves size={12} />
+            <Waves size={13} />
             <span>{node.label}</span>
           </button>
         ))}
@@ -183,7 +185,7 @@ export const Envelope08_MagicRipple = ({ envelope, onClose }) => {
           padding: 'clamp(20px, 3.5vw, 26px)',
           border: '1.5px solid rgba(139, 111, 169, 0.35)',
           boxShadow: 'inset 0 0 20px rgba(139, 111, 169, 0.1), 0 8px 30px rgba(0, 0, 0, 0.4)',
-          marginBottom: '18px',
+          marginBottom: '20px',
           position: 'relative',
           zIndex: 5,
           backdropFilter: 'blur(8px)'
@@ -243,28 +245,29 @@ export const Envelope08_MagicRipple = ({ envelope, onClose }) => {
               key={item.id}
               style={{
                 background: 'rgba(255, 255, 255, 0.07)',
-                padding: '12px',
-                borderRadius: '12px',
+                padding: '14px',
+                borderRadius: '14px',
                 border: '1px solid rgba(139, 111, 169, 0.3)'
               }}
             >
-              <p style={{ fontSize: '12.5px', fontWeight: 600, color: '#FFFDF9', margin: '0 0 8px' }}>
+              <p style={{ fontSize: '12.5px', fontWeight: 600, color: '#FFFDF9', margin: '0 0 10px' }}>
                 {item.question}
               </p>
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 {item.options.map((opt, oIdx) => {
                   const isChosen = challengeAnswers[item.id] === opt.text;
                   return (
                     <button
                       key={oIdx}
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         soundManager.playButtonClick();
                         setChallengeAnswers((prev) => ({ ...prev, [item.id]: opt.text }));
                       }}
                       style={{
-                        fontSize: '11px',
-                        padding: '5px 12px',
+                        fontSize: '11.5px',
+                        padding: '6px 14px',
                         borderRadius: '20px',
                         cursor: 'pointer',
                         border: isChosen
@@ -290,18 +293,18 @@ export const Envelope08_MagicRipple = ({ envelope, onClose }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             style={{
-              marginTop: '12px',
+              marginTop: '14px',
               background: 'linear-gradient(135deg, rgba(132, 94, 194, 0.25) 0%, rgba(212, 175, 55, 0.2) 100%)',
               border: '1.5px solid #D4AF37',
-              borderRadius: '12px',
-              padding: '12px 16px',
+              borderRadius: '14px',
+              padding: '14px 18px',
               textAlign: 'center'
             }}
           >
             <strong style={{ fontSize: '13px', color: '#F4D47C', display: 'block', marginBottom: '4px' }}>
               ★ Diagnostic Verified: Grade Commander Estelle
             </strong>
-            <span style={{ fontSize: '12px', color: '#E9DDF5' }}>
+            <span style={{ fontSize: '12.5px', color: '#E9DDF5' }}>
               Diagnosis: 100% Unpredictable, highly resilient, and extraordinarily entertaining company.
             </span>
           </motion.div>

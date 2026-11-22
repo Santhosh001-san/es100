@@ -13,11 +13,13 @@ export const Envelope10_FinalCelebration = ({ envelope, onClose, onLetterRead })
       style={{
         width: '100%',
         maxWidth: '740px',
-        margin: '0 auto',
-        position: 'relative'
+        margin: 'auto 0',
+        position: 'relative',
+        touchAction: 'pan-y',
+        paddingBottom: 'clamp(36px, 5vw, 48px)'
       }}
     >
-      {/* Renders the preserved Sealed Dispatch screen with Golden E Wax Seal and "BREAK GOLDEN WAX SEAL" button */}
+      {/* Renders the Final Invitation with the Magical Star Clasp & "UNLOCK THE FINAL CELEBRATION" */}
       <UnfoldingLetter
         onClose={onClose}
         onLetterRead={onLetterRead}

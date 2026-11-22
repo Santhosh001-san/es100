@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bookmark, Sparkles, Sun } from 'lucide-react';
+import { Bookmark, Sparkles } from 'lucide-react';
 import { soundManager } from '../../../utils/audioSynth';
 import { CloseButton } from '../../Common/CloseButton';
 
@@ -13,37 +13,29 @@ export const Envelope03_LightWithin = ({ envelope, onClose }) => {
       id: 'drama',
       label: 'The Drama Core',
       icon: '✦',
-      top: '12%',
-      left: '8%',
-      surprise: 'Doubling down on an argument purely for the theatrical entertainment value.'
+      surprise: 'Doubling down on a ridiculous argument purely for the theatrical entertainment value.'
     },
     {
       id: 'tangents',
       label: 'The Tangent Flare',
       icon: '☼',
-      top: '12%',
-      right: '8%',
       surprise: 'Switching from serious topics to completely unhinged theories with zero warning.'
     },
     {
       id: 'rhythm',
       label: 'The Quiet Rhythm',
       icon: '❦',
-      bottom: '16%',
-      left: '8%',
       surprise: 'A shared natural frequency where even a single word says an entire paragraph.'
     },
     {
       id: 'quirks',
       label: 'The Small Habits',
       icon: '✨',
-      bottom: '16%',
-      right: '8%',
       surprise: 'The little quirks that make 100 days feel like they passed in 10 minutes.'
     }
   ];
 
-  const handleMouseMove = (e) => {
+  const handlePointerMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setLightPos({
       x: e.clientX - rect.left,
@@ -63,20 +55,19 @@ export const Envelope03_LightWithin = ({ envelope, onClose }) => {
       exit={{ scale: 0.85, opacity: 0, y: 20 }}
       transition={{ type: 'spring', damping: 25, stiffness: 280 }}
       onClick={(e) => e.stopPropagation()}
-      onMouseMove={handleMouseMove}
+      onPointerMove={handlePointerMove}
       style={{
         background: 'radial-gradient(ellipse at 50% 25%, #FFFDF5 0%, #F8F1DE 65%, #EFE1C5 100%)',
         borderRadius: '26px',
         maxWidth: '650px',
         width: '100%',
-        maxHeight: '90vh',
-        overflowY: 'auto',
-        padding: 'clamp(28px, 4.5vw, 38px) clamp(18px, 4vw, 30px) 28px',
+        margin: 'auto 0',
+        padding: 'clamp(28px, 4.5vw, 38px) clamp(18px, 4vw, 30px) clamp(36px, 5vw, 48px)',
         boxShadow: '0 28px 75px rgba(181, 138, 56, 0.35), 0 0 45px rgba(255, 235, 170, 0.45)',
         border: '2px solid rgba(181, 138, 56, 0.65)',
         position: 'relative',
         textAlign: 'center',
-        overflow: 'hidden'
+        touchAction: 'pan-y'
       }}
     >
       {/* Interactive Light Beam that follows pointer / touch */}
@@ -84,10 +75,11 @@ export const Envelope03_LightWithin = ({ envelope, onClose }) => {
         style={{
           position: 'absolute',
           inset: 0,
-          background: `radial-gradient(circle 240px at ${lightPos.x}px ${lightPos.y}px, rgba(255, 245, 200, 0.4) 0%, rgba(212, 175, 55, 0.1) 45%, transparent 75%)`,
+          background: `radial-gradient(circle 240px at ${lightPos.x}px ${lightPos.y}px, rgba(255, 245, 200, 0.45) 0%, rgba(212, 175, 55, 0.12) 45%, transparent 75%)`,
           pointerEvents: 'none',
           zIndex: 2,
-          transition: 'background 0.08s ease-out'
+          transition: 'background 0.08s ease-out',
+          borderRadius: '24px'
         }}
       />
 
@@ -100,81 +92,6 @@ export const Envelope03_LightWithin = ({ envelope, onClose }) => {
         right="14px"
         ariaLabel="Close Envelope 03"
       />
-
-      {/* Interactive Light Nodes around the scene */}
-      {lightNodes.map((node) => {
-        const isRevealed = revealedNodeId === node.id;
-        return (
-          <div
-            key={node.id}
-            style={{
-              position: 'absolute',
-              top: node.top,
-              bottom: node.bottom,
-              left: node.left,
-              right: node.right,
-              zIndex: 10
-            }}
-          >
-            <motion.button
-              whileHover={{ scale: 1.35 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => handleNodeClick(node)}
-              title={node.label}
-              style={{
-                background: isRevealed
-                  ? 'radial-gradient(circle, #FFF2B2 0%, #D4AF37 100%)'
-                  : 'rgba(255, 255, 255, 0.9)',
-                border: '1.5px solid rgba(181, 138, 56, 0.6)',
-                borderRadius: '50%',
-                width: '36px',
-                height: '36px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '16px',
-                color: isRevealed ? '#34224C' : '#96741F',
-                cursor: 'pointer',
-                boxShadow: isRevealed
-                  ? '0 0 20px rgba(212, 175, 55, 0.9)'
-                  : '0 4px 12px rgba(181, 138, 56, 0.25)',
-                transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
-              }}
-            >
-              {node.icon}
-            </motion.button>
-
-            {isRevealed && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85, y: 6 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.85 }}
-                style={{
-                  position: 'absolute',
-                  top: '42px',
-                  left: node.left ? '0' : 'auto',
-                  right: node.right ? '0' : 'auto',
-                  background: '#FFFDF5',
-                  border: '1.5px solid #D4AF37',
-                  borderRadius: '12px',
-                  padding: '10px 14px',
-                  width: '210px',
-                  textAlign: 'left',
-                  boxShadow: '0 10px 30px rgba(74, 53, 104, 0.25)',
-                  zIndex: 25
-                }}
-              >
-                <div style={{ fontSize: '11px', fontWeight: 800, color: '#96741F', letterSpacing: '0.08em', marginBottom: '4px' }}>
-                  {node.label}
-                </div>
-                <div style={{ fontSize: '12px', color: '#44321A', lineHeight: 1.45 }}>
-                  {node.surprise}
-                </div>
-              </motion.div>
-            )}
-          </div>
-        );
-      })}
 
       {/* Header Stamp */}
       <motion.div
@@ -234,7 +151,7 @@ export const Envelope03_LightWithin = ({ envelope, onClose }) => {
           padding: 'clamp(22px, 3.5vw, 28px)',
           border: '1.5px solid rgba(181, 138, 56, 0.4)',
           boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.02), 0 8px 24px rgba(181, 138, 56, 0.12)',
-          marginBottom: '20px',
+          marginBottom: '22px',
           position: 'relative',
           zIndex: 5
         }}
@@ -272,9 +189,80 @@ export const Envelope03_LightWithin = ({ envelope, onClose }) => {
         )}
       </motion.div>
 
-      {/* Hint for Light Nodes */}
-      <div style={{ fontSize: '11px', color: '#826217', marginBottom: '18px', fontStyle: 'italic', position: 'relative', zIndex: 5 }}>
-        ✦ Move your cursor to cast light, and tap the glowing nodes to uncover quiet details ✦
+      {/* Interactive Light Nodes Tray */}
+      <div style={{ marginBottom: '22px', position: 'relative', zIndex: 5 }}>
+        <div style={{ fontSize: '11px', fontWeight: 800, color: '#826217', letterSpacing: '0.1em', fontFamily: "'Cinzel', serif", marginBottom: '10px' }}>
+          ✦ TAP GLOWING LIGHT PRISMS TO UNCOVER QUIET DETAILS ✦
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          {lightNodes.map((node) => {
+            const isRevealed = revealedNodeId === node.id;
+            return (
+              <motion.button
+                key={node.id}
+                whileHover={{ scale: 1.08, y: -2 }}
+                whileTap={{ scale: 0.94 }}
+                onClick={() => handleNodeClick(node)}
+                style={{
+                  background: isRevealed
+                    ? 'radial-gradient(circle, #FFF4D0 0%, #D4AF37 100%)'
+                    : 'rgba(255, 255, 255, 0.9)',
+                  border: isRevealed
+                    ? '1.5px solid #D4AF37'
+                    : '1px solid rgba(181, 138, 56, 0.45)',
+                  borderRadius: '20px',
+                  padding: '6px 14px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '12px',
+                  color: isRevealed ? '#34224C' : '#826217',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  boxShadow: isRevealed
+                    ? '0 4px 15px rgba(212, 175, 55, 0.6)'
+                    : '0 2px 8px rgba(181, 138, 56, 0.15)'
+                }}
+              >
+                <span>{node.icon}</span>
+                <span>{node.label}</span>
+              </motion.button>
+            );
+          })}
+        </div>
+
+        {/* Revealed Observation Card */}
+        <AnimatePresence>
+          {revealedNodeId && (
+            <motion.div
+              key={revealedNodeId}
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.25 }}
+              style={{
+                marginTop: '14px',
+                background: '#FFFDF5',
+                border: '1.5px solid #D4AF37',
+                borderRadius: '14px',
+                padding: '14px 18px',
+                textAlign: 'left',
+                boxShadow: '0 8px 24px rgba(74, 53, 104, 0.12)'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                <Sparkles size={14} color="#D4AF37" />
+                <strong style={{ fontSize: '12px', color: '#826217', fontFamily: "'Cinzel', serif" }}>
+                  {lightNodes.find((n) => n.id === revealedNodeId)?.label}
+                </strong>
+              </div>
+              <p style={{ fontSize: '13px', color: '#44321A', lineHeight: 1.55, margin: 0 }}>
+                {lightNodes.find((n) => n.id === revealedNodeId)?.surprise}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Action Button */}

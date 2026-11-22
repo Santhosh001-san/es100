@@ -54,15 +54,16 @@ export const SurpriseEnvelope = ({ envelope, isOpened, onOpen, index }) => {
             style={{
               position: 'fixed',
               inset: 0,
-              background: 'rgba(16, 8, 24, 0.88)',
+              background: 'rgba(14, 6, 20, 0.90)',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
               zIndex: 1300,
               display: 'flex',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               justifyContent: 'center',
-              padding: '16px',
-              overflowY: 'auto'
+              padding: 'clamp(20px, 4vh, 40px) 16px clamp(48px, 8vh, 80px)',
+              overflowY: 'auto',
+              WebkitOverflowScrolling: 'touch'
             }}
             onClick={handleClose}
           >

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, Shield, Stamp } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { BookOpen } from 'lucide-react';
 import { soundManager } from '../../../utils/audioSynth';
 import { CloseButton } from '../../Common/CloseButton';
 
@@ -55,7 +55,7 @@ export const Envelope07_SecretDispatch = ({ envelope, onClose }) => {
 
   return (
     <motion.div
-      initial={{ scale: 0.8, opacity: 0, y: 35 }}
+      initial={{ scale: 0.82, opacity: 0, y: 35 }}
       animate={{ scale: 1, opacity: 1, y: 0 }}
       exit={{ scale: 0.85, opacity: 0, y: 20 }}
       transition={{ type: 'spring', damping: 25, stiffness: 280 }}
@@ -65,13 +65,13 @@ export const Envelope07_SecretDispatch = ({ envelope, onClose }) => {
         borderRadius: '26px',
         maxWidth: '650px',
         width: '100%',
-        maxHeight: '90vh',
-        overflowY: 'auto',
-        padding: 'clamp(28px, 4.5vw, 38px) clamp(18px, 4vw, 30px) 28px',
+        margin: 'auto 0',
+        padding: 'clamp(28px, 4.5vw, 38px) clamp(18px, 4vw, 30px) clamp(36px, 5vw, 48px)',
         boxShadow: '0 28px 75px rgba(50, 35, 20, 0.35), 0 0 45px rgba(212, 175, 55, 0.25)',
         border: '2px solid rgba(181, 138, 56, 0.65)',
         position: 'relative',
-        textAlign: 'center'
+        textAlign: 'center',
+        touchAction: 'pan-y'
       }}
     >
       {/* Universal Close Button */}
@@ -159,7 +159,7 @@ export const Envelope07_SecretDispatch = ({ envelope, onClose }) => {
           padding: 'clamp(22px, 3.5vw, 28px)',
           border: '1.5px solid rgba(181, 138, 56, 0.4)',
           boxShadow: 'inset 0 0 20px rgba(0,0,0,0.02), 0 8px 24px rgba(74, 53, 104, 0.08)',
-          marginBottom: '20px',
+          marginBottom: '22px',
           position: 'relative',
           overflow: 'hidden'
         }}
@@ -184,7 +184,7 @@ export const Envelope07_SecretDispatch = ({ envelope, onClose }) => {
               pointerEvents: 'none',
               zIndex: 10,
               boxShadow: `0 0 10px ${stamp.color}33`,
-              background: 'rgba(255, 255, 255, 0.65)'
+              background: 'rgba(255, 255, 255, 0.7)'
             }}
           >
             <div style={{ fontSize: '11px', fontWeight: 900, letterSpacing: '0.14em' }}>{stamp.title}</div>
@@ -230,7 +230,7 @@ export const Envelope07_SecretDispatch = ({ envelope, onClose }) => {
       </motion.div>
 
       {/* Interactive Rubber Stamps Desk */}
-      <div style={{ marginBottom: '20px', textAlign: 'left' }}>
+      <div style={{ marginBottom: '22px', textAlign: 'left' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
           <span
             style={{
@@ -245,6 +245,7 @@ export const Envelope07_SecretDispatch = ({ envelope, onClose }) => {
           </span>
           {stampedList.length > 0 && (
             <button
+              type="button"
               onClick={handleClearStamps}
               style={{
                 fontSize: '11px',
@@ -266,12 +267,13 @@ export const Envelope07_SecretDispatch = ({ envelope, onClose }) => {
             return (
               <motion.button
                 key={stamp.id}
+                type="button"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleApplyStamp(stamp)}
                 style={{
                   flex: '1 1 140px',
-                  padding: '10px 12px',
+                  padding: '12px 14px',
                   borderRadius: '12px',
                   background: isPressed ? '#FDF5E6' : '#FFFFFF',
                   border: stamp.border,

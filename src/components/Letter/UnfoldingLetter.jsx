@@ -33,34 +33,34 @@ const renderHighlightedText = (text) => {
 };
 
 export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
-  // Modes: 'sealed' | 'breaking' | 'celebration' | 'letter'
-  const [mode, setMode] = useState('sealed');
+  // Modes: 'clasp' | 'unlocking' | 'celebration' | 'letter'
+  const [mode, setMode] = useState('clasp');
   const [revealedParagraphs, setRevealedParagraphs] = useState(0);
 
-  // Click on "BREAK GOLDEN WAX SEAL" button
-  const handleOpenLetter = () => {
-    if (mode !== 'sealed') return;
+  // Click on "UNLOCK THE FINAL CELEBRATION" or the Magical Star Clasp
+  const handleUnlockCelebration = () => {
+    if (mode !== 'clasp') return;
 
-    soundManager.playSealBreak();
-    setMode('breaking');
+    soundManager.playStarChime(1.25);
+    setMode('unlocking');
 
-    // Golden wax seal fracture burst
+    // Tiny elegant golden star particles and lavender shimmer burst
     confetti({
-      particleCount: 50,
-      spread: 60,
-      origin: { y: 0.6 },
-      colors: ['#D4AF37', '#FFF4D0', '#E5B84B', '#FFFFFF']
+      particleCount: 60,
+      spread: 75,
+      origin: { y: 0.52 },
+      colors: ['#D4AF37', '#FFF8DB', '#BA93E6', '#F3E8FF', '#FFFFFF', '#ECC864']
     });
 
-    // Realistic seal fracture and flap lift transition
+    // Invitation unfolds smoothly with light trail before starting celebration
     setTimeout(() => {
       setMode('celebration');
-    }, 650);
+    }, 700);
   };
 
   const handleClose = () => {
     soundManager.playButtonClick();
-    setMode('sealed');
+    setMode('clasp');
     setRevealedParagraphs(0);
     if (onClose) onClose();
   };
@@ -85,30 +85,27 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
     setMode('celebration');
   };
 
-  useEscapeKey(handleClose, mode !== 'sealed');
+  useEscapeKey(handleClose, mode !== 'clasp');
 
   return (
     <div style={{ maxWidth: '740px', margin: '0 auto', position: 'relative' }}>
       <AnimatePresence mode="wait">
-        {/* 1. EXACT PRESERVED SEALED DISPATCH SCREEN */}
-        {(mode === 'sealed' || mode === 'breaking') && (
+        {/* 1. THE FINAL INVITATION WITH THE MAGICAL STAR CLASP */}
+        {(mode === 'clasp' || mode === 'unlocking') && (
           <motion.div
-            key="sealed-screen"
+            key="clasp-screen"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{ duration: 0.4 }}
-            whileHover={mode === 'sealed' ? { scale: 1.02 } : {}}
-            whileTap={mode === 'sealed' ? { scale: 0.98 } : {}}
-            onClick={handleOpenLetter}
             className="parchment-card"
             style={{
-              padding: '60px 30px',
+              padding: 'clamp(44px, 6vw, 64px) clamp(20px, 4vw, 36px)',
               textAlign: 'center',
-              cursor: mode === 'sealed' ? 'pointer' : 'default',
-              background: 'linear-gradient(135deg, #FFFDF9 0%, #FAF5EC 100%)',
-              border: '2px solid rgba(212, 175, 55, 0.45)',
-              boxShadow: '0 16px 40px rgba(74, 53, 104, 0.14)',
+              background: 'radial-gradient(ellipse at 50% 25%, #FFFDF9 0%, #FAF4EB 60%, #F5ECDD 100%)',
+              border: '2px solid rgba(212, 175, 55, 0.65)',
+              boxShadow: '0 20px 50px rgba(74, 53, 104, 0.18), 0 0 35px rgba(186, 147, 230, 0.25)',
+              borderRadius: '26px',
               position: 'relative',
               overflow: 'hidden'
             }}
@@ -122,62 +119,120 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                 variant="gold"
                 top="16px"
                 right="16px"
-                ariaLabel="Close Sealed Dispatch"
+                ariaLabel="Close Final Invitation"
               />
             )}
-            {/* Golden Wax Seal (with realistic fracture animation on click) */}
-            <div style={{ position: 'relative', width: '74px', height: '74px', margin: '0 auto 20px' }}>
-              {mode === 'breaking' ? (
-                <>
-                  {/* Left fracture fragment */}
-                  <motion.div
-                    initial={{ x: 0, rotate: 0, opacity: 1 }}
-                    animate={{ x: -18, rotate: -15, opacity: 0 }}
-                    transition={{ duration: 0.55, ease: 'easeOut' }}
-                    className="wax-seal"
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      width: '74px',
-                      height: '74px',
-                      clipPath: 'polygon(0% 0%, 55% 0%, 45% 100%, 0% 100%)',
-                      fontSize: '2rem'
-                    }}
-                  >
-                    {letterData.waxSealMonogram}
-                  </motion.div>
 
-                  {/* Right fracture fragment */}
-                  <motion.div
-                    initial={{ x: 0, rotate: 0, opacity: 1 }}
-                    animate={{ x: 18, rotate: 15, opacity: 0 }}
-                    transition={{ duration: 0.55, ease: 'easeOut' }}
-                    className="wax-seal"
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      width: '74px',
-                      height: '74px',
-                      clipPath: 'polygon(55% 0%, 100% 0%, 100% 100%, 45% 100%)',
-                      fontSize: '2rem'
-                    }}
-                  >
-                    {letterData.waxSealMonogram}
-                  </motion.div>
-                </>
-              ) : (
-                <div
-                  className="wax-seal"
-                  style={{
-                    width: '74px',
-                    height: '74px',
-                    margin: '0 auto',
-                    fontSize: '2rem'
-                  }}
-                >
-                  {letterData.waxSealMonogram}
-                </div>
-              )}
+            {/* Traveling Light Trail on Unlocking */}
+            {mode === 'unlocking' && (
+              <motion.div
+                initial={{ x: '-100%', opacity: 0 }}
+                animate={{ x: '200%', opacity: [0, 1, 0] }}
+                transition={{ duration: 0.7, ease: 'easeInOut' }}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(90deg, transparent 0%, rgba(255, 245, 200, 0.7) 45%, rgba(186, 147, 230, 0.6) 55%, transparent 100%)',
+                  transform: 'skewX(-25deg)',
+                  pointerEvents: 'none',
+                  zIndex: 20
+                }}
+              />
+            )}
+
+            {/* ==============================================================
+                THE MAGICAL STAR CLASP (3D Faceted Champagne-Gold Clasp with Lavender Glow)
+                ============================================================== */}
+            <div
+              onClick={handleUnlockCelebration}
+              className="magical-star-clasp-container"
+              style={{
+                position: 'relative',
+                width: '92px',
+                height: '92px',
+                margin: '0 auto 22px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: mode === 'clasp' ? 'pointer' : 'default'
+              }}
+            >
+              {/* Subtle Ambient Lavender Glow */}
+              <motion.div
+                animate={{
+                  scale: [1, 1.15, 1],
+                  opacity: [0.55, 0.85, 0.55]
+                }}
+                transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+                style={{
+                  position: 'absolute',
+                  inset: '-12px',
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(186, 147, 230, 0.5) 0%, rgba(212, 175, 55, 0.25) 45%, transparent 70%)',
+                  filter: 'blur(10px)',
+                  pointerEvents: 'none'
+                }}
+              />
+
+              {/* 3D Champagne-Gold Star Clasp */}
+              <motion.div
+                animate={
+                  mode === 'unlocking'
+                    ? { rotate: 360, scale: 1.3, opacity: [1, 1, 0] }
+                    : { rotate: [0, 4, -4, 0], scale: 1 }
+                }
+                transition={
+                  mode === 'unlocking'
+                    ? { duration: 0.68, ease: 'easeInOut' }
+                    : { duration: 6, repeat: Infinity, ease: 'easeInOut' }
+                }
+                whileHover={{ scale: 1.14, rotate: 15 }}
+                whileTap={{ scale: 0.92 }}
+                style={{
+                  width: '84px',
+                  height: '84px',
+                  position: 'relative',
+                  filter: 'drop-shadow(0 8px 18px rgba(74, 53, 104, 0.35)) drop-shadow(0 0 16px rgba(212, 175, 55, 0.65))'
+                }}
+              >
+                <svg width="84" height="84" viewBox="0 0 100 100" fill="none">
+                  <defs>
+                    <linearGradient id="starGoldLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#FFFDF7" />
+                      <stop offset="30%" stopColor="#F8E5A1" />
+                      <stop offset="60%" stopColor="#D4AF37" />
+                      <stop offset="100%" stopColor="#96741F" />
+                    </linearGradient>
+                    <linearGradient id="starGoldDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#E5C365" />
+                      <stop offset="50%" stopColor="#B38B29" />
+                      <stop offset="100%" stopColor="#6E4F0E" />
+                    </linearGradient>
+                    <radialGradient id="starCoreGlow" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#FFFFFF" />
+                      <stop offset="45%" stopColor="#FFF2B8" />
+                      <stop offset="80%" stopColor="#D4AF37" />
+                      <stop offset="100%" stopColor="#7A560E" />
+                    </radialGradient>
+                  </defs>
+
+                  {/* 8-Pointed Star Clasp Primary Facets */}
+                  <polygon points="50,4 58,38 96,50 58,62 50,96 42,62 4,50 42,38" fill="url(#starGoldLight)" />
+                  {/* Diagonal Secondary Facets */}
+                  <polygon points="50,18 64,36 82,50 64,64 50,82 36,64 18,50 36,36" fill="url(#starGoldDark)" opacity="0.88" />
+                  {/* Fine Shading Ridges */}
+                  <polygon points="50,4 50,50 58,38" fill="#FFF9E0" opacity="0.65" />
+                  <polygon points="96,50 50,50 58,62" fill="#805B10" opacity="0.5" />
+                  <polygon points="50,96 50,50 42,62" fill="#6B4B0A" opacity="0.6" />
+                  <polygon points="4,50 50,50 42,38" fill="#FFF4C2" opacity="0.5" />
+                  {/* Inner Metallic Medallion Ring with Micro-Perforations */}
+                  <circle cx="50" cy="50" r="19" fill="url(#starCoreGlow)" stroke="#FFFDF8" strokeWidth="1.5" />
+                  <circle cx="50" cy="50" r="14" fill="none" stroke="rgba(212, 175, 55, 0.85)" strokeWidth="1" strokeDasharray="2 2" />
+                  {/* Central Diamond Starlet */}
+                  <polygon points="50,38 54,47 62,50 54,53 50,62 46,53 38,50 46,47" fill="#FFFFFF" />
+                  <circle cx="50" cy="50" r="2.5" fill="#FFE27A" />
+                </svg>
+              </motion.div>
             </div>
 
             <span
@@ -185,19 +240,19 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
               style={{
                 fontSize: '11px',
                 fontWeight: 800,
-                letterSpacing: '0.2em',
+                letterSpacing: '0.22em',
                 color: '#B38B29',
                 display: 'block',
                 marginBottom: '8px'
               }}
             >
-              SEALED DISPATCH • PRIVATE
+              THE CENTENNIAL INVITATION • PRIVATE
             </span>
 
             <h3
               className="font-serif-luxury"
               style={{
-                fontSize: '26px',
+                fontSize: 'clamp(24px, 4vw, 30px)',
                 fontWeight: 700,
                 color: '#34224C',
                 marginBottom: '10px'
@@ -206,13 +261,23 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
               For Commander Estelle
             </h3>
 
-            <p style={{ fontSize: '14.5px', color: '#7E6E92', marginBottom: '24px' }}>
-              Click the golden seal to break it open and unfold the letter.
+            <p style={{ fontSize: '14.5px', color: '#7E6E92', marginBottom: '26px' }}>
+              Touch the magical star clasp to unfold the invitation and begin the 100-day celebration.
             </p>
 
-            <button className="btn-gold-luxury" style={{ pointerEvents: 'none' }}>
+            <button
+              onClick={handleUnlockCelebration}
+              className="btn-gold-luxury"
+              style={{
+                fontSize: '13px',
+                padding: '13px 30px',
+                cursor: 'pointer',
+                letterSpacing: '0.08em',
+                boxShadow: '0 8px 24px rgba(212, 175, 55, 0.4), 0 0 20px rgba(186, 147, 230, 0.35)'
+              }}
+            >
               <Sparkles size={16} />
-              <span>Break Golden Wax Seal</span>
+              <span>UNLOCK THE FINAL CELEBRATION</span>
             </button>
           </motion.div>
         )}
@@ -261,7 +326,7 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
             {/* Universal Close Button (sticky so it stays visible on mobile scroll) */}
             <CloseButton
               onClose={handleClose}
-              ariaLabel="Close and re-seal letter"
+              ariaLabel="Close celebration letter"
               variant="gold"
               isSticky={true}
               top="16px"
@@ -586,7 +651,7 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                   style={{ fontSize: '12px', padding: '10px 20px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
                 >
                   <ArrowLeft size={14} />
-                  <span>Re-seal Dispatch</span>
+                  <span>Return to Envelopes</span>
                 </button>
               </div>
             </motion.div>
