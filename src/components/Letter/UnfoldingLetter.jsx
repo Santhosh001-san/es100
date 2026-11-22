@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowLeft, PartyPopper } from 'lucide-react';
+import { Sparkles, ArrowLeft, PartyPopper, Languages } from 'lucide-react';
 import { letterData } from '../../data/letter';
 import { soundManager } from '../../utils/audioSynth';
 import confetti from 'canvas-confetti';
@@ -8,10 +8,10 @@ import { CloseButton } from '../Common/CloseButton';
 import { useEscapeKey } from '../../utils/useEscapeKey';
 import { LetterCelebration } from './LetterCelebration';
 
-// Helper to tastefully highlight key words: 100 days, family, friends, memories, happiness
+// Helper to tastefully highlight key words: 100 days, family, friends, memories, happiness (both English & Vietnamese)
 const renderHighlightedText = (text) => {
   if (!text) return null;
-  const regex = /(100 days|family|friends|memories|happiness)/gi;
+  const regex = /(100 days|family|friends|memories|happiness|100 ngày|gia đình|bạn bè|kỷ niệm|ký ức|hạnh phúc)/gi;
   const parts = text.split(regex);
   return parts.map((part, i) => {
     const lower = part.toLowerCase();
@@ -20,7 +20,13 @@ const renderHighlightedText = (text) => {
       lower === 'family' ||
       lower === 'friends' ||
       lower === 'memories' ||
-      lower === 'happiness'
+      lower === 'happiness' ||
+      lower === '100 ngày' ||
+      lower === 'gia đình' ||
+      lower === 'bạn bè' ||
+      lower === 'kỷ niệm' ||
+      lower === 'ký ức' ||
+      lower === 'hạnh phúc'
     ) {
       return (
         <span key={i} className="gold-word-highlight">
@@ -36,6 +42,16 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
   // Modes: 'sealed' | 'breaking' | 'celebration' | 'letter'
   const [mode, setMode] = useState('sealed');
   const [revealedParagraphs, setRevealedParagraphs] = useState(0);
+  const [language, setLanguage] = useState('en');
+
+  const currentContent = letterData.translations
+    ? letterData.translations[language] || letterData.translations.en
+    : letterData;
+
+  const toggleLanguage = () => {
+    soundManager.playButtonClick();
+    setLanguage((prev) => (prev === 'en' ? 'vi' : 'en'));
+  };
 
   // Click on "BREAK GOLDEN WAX SEAL" button
   const handleOpenLetter = () => {
@@ -62,6 +78,7 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
     soundManager.playButtonClick();
     setMode('sealed');
     setRevealedParagraphs(0);
+    setLanguage('en');
     if (onClose) onClose();
   };
 
@@ -397,7 +414,7 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                 }}
               >
                 <span style={{ height: '1px', width: '28px', background: 'linear-gradient(90deg, transparent, #D4AF37)' }} />
-                <span>✦ DAY 100 KEEPSAKE DISPATCH ✦</span>
+                <span>{currentContent.badge || '✦ DAY 100 KEEPSAKE DISPATCH ✦'}</span>
                 <span style={{ height: '1px', width: '28px', background: 'linear-gradient(90deg, #D4AF37, transparent)' }} />
               </div>
 
@@ -414,7 +431,7 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                   filter: 'drop-shadow(0 2px 8px rgba(212, 175, 55, 0.25))'
                 }}
               >
-                {letterData.title}
+                {currentContent.title}
               </h2>
 
               <div
@@ -434,8 +451,37 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                 }}
               >
                 <Sparkles size={11} color="#B38018" />
-                <span>SPECIAL COMMENDATION FOR COMMANDER ESTELLE</span>
+                <span>{currentContent.commendation || "SPECIAL COMMENDATION FOR COMMANDER ESTELLE"}</span>
                 <Sparkles size={11} color="#B38018" />
+              </div>
+
+              {/* VIETNAMESE / ENGLISH TRANSLATION TOGGLE */}
+              <div style={{ marginTop: '14px' }}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={toggleLanguage}
+                  className="btn-gold-luxury"
+                  style={{
+                    fontSize: '11px',
+                    padding: '7px 18px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    borderRadius: '20px',
+                    cursor: 'pointer',
+                    letterSpacing: '0.04em',
+                    boxShadow: '0 4px 14px rgba(212, 175, 55, 0.3)'
+                  }}
+                  title={language === 'en' ? 'Translate to Vietnamese' : 'Show English'}
+                >
+                  <Languages size={14} />
+                  <span>
+                    {language === 'en'
+                      ? '🇻🇳 Dịch sang Tiếng Việt (Translate to Vietnamese)'
+                      : '🇬🇧 Show English (Xem Tiếng Anh)'}
+                  </span>
+                </motion.button>
               </div>
             </motion.div>
 
@@ -453,12 +499,12 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                 paddingRight: '36px'
               }}
             >
-              {letterData.salutation}
+              {currentContent.salutation}
             </motion.h3>
 
             {/* STAGGERED PARAGRAPHS WITH TASTEFUL GOLD HIGHLIGHTS */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-              {letterData.paragraphs.map((p, idx) => (
+              {currentContent.paragraphs.map((p, idx) => (
                 <motion.p
                   key={idx}
                   initial={{ opacity: 0, y: 14 }}
@@ -484,8 +530,8 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{
-                opacity: revealedParagraphs >= letterData.paragraphs.length ? 1 : 0,
-                scale: revealedParagraphs >= letterData.paragraphs.length ? 1 : 0.96
+                opacity: revealedParagraphs >= currentContent.paragraphs.length ? 1 : 0,
+                scale: revealedParagraphs >= currentContent.paragraphs.length ? 1 : 0.96
               }}
               transition={{ duration: 0.7, delay: 0.3 }}
               style={{
@@ -511,7 +557,7 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                 }}
               >
                 <Sparkles size={15} color="#D4AF37" />
-                <span>{letterData.milestoneBanner}</span>
+                <span>{currentContent.milestoneBanner}</span>
                 <Sparkles size={15} color="#D4AF37" />
               </div>
             </motion.div>
@@ -520,8 +566,8 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{
-                opacity: revealedParagraphs >= letterData.paragraphs.length ? 1 : 0,
-                y: revealedParagraphs >= letterData.paragraphs.length ? 0 : 15
+                opacity: revealedParagraphs >= currentContent.paragraphs.length ? 1 : 0,
+                y: revealedParagraphs >= currentContent.paragraphs.length ? 0 : 15
               }}
               transition={{ duration: 0.8, delay: 0.5 }}
               style={{
@@ -545,7 +591,7 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                     marginBottom: '16px'
                   }}
                 >
-                  {letterData.closingGreeting}
+                  {currentContent.closingGreeting}
                 </p>
 
                 {/* Handwritten Signature */}
@@ -562,9 +608,9 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                       textAlign: 'left'
                     }}
                   >
-                    {letterData.signaturePrefix}<br />
+                    {currentContent.signaturePrefix}<br />
                     <span style={{ fontSize: 'clamp(34px, 5.2vw, 42px)', color: '#5C2D84', fontWeight: 700 }}>
-                      {letterData.signatureAuthor}
+                      {currentContent.signatureAuthor}
                     </span>
                   </p>
                 </div>
@@ -578,7 +624,7 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                   style={{ fontSize: '12px', padding: '10px 20px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
                 >
                   <PartyPopper size={14} />
-                  <span>Replay Celebration</span>
+                  <span>{currentContent.replayText || 'Replay Celebration'}</span>
                 </button>
                 <button
                   onClick={handleClose}
@@ -586,7 +632,7 @@ export const UnfoldingLetter = ({ onLetterRead, onClose }) => {
                   style={{ fontSize: '12px', padding: '10px 20px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
                 >
                   <ArrowLeft size={14} />
-                  <span>Re-seal Dispatch</span>
+                  <span>{currentContent.resealText || 'Re-seal Dispatch'}</span>
                 </button>
               </div>
             </motion.div>
